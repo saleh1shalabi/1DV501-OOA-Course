@@ -1,34 +1,32 @@
 package RecipApp;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class TheApp {
 
     private FileManager file = new FileManager();
-    private Scanner input;
+
     public ArrayList<Ingredient> ingredients;
     public ArrayList<Recip> recips;
     private Recip recip;
+    private UiConsoleSc ui = new UiConsoleSc();
 
     TheApp() {
         ingredients = new ArrayList<>();
-        input = new Scanner(System.in);
         recips = new ArrayList<>();
     }
 
     private void addIngredient() {
 
         System.out.println("new ing: ");
-        String ne = input.nextLine();
+        String ne = ui.stringGetter();
 
         System.out.println("new mått: ");
+        String mg = ui.stringGetter();
 
-        String mg = input.nextLine();
         System.out.println("new pris: ");
-
-        double pr = Double.parseDouble(input.nextLine());
+        int pr = ui.intGetter();
 
         Ingredient ing = (new Ingredient(ne, mg, pr));
         ingredients.add(ing);
@@ -46,7 +44,7 @@ public class TheApp {
 
     private void addRecip() {
         System.out.println("What is the name of the new Recip?");
-        recip = new Recip(input.nextLine());
+        recip = new Recip(ui.stringGetter());
         addIngredientsToRecip();
         recips.add(recip);
     }
@@ -59,7 +57,7 @@ public class TheApp {
             recip.addIngredient(ingredients.get(getIngredientPlace()), getHowMuch(), getIngredientReson());
             System.out.println("ADD new ingredient? (for no n)");
 
-            x = input.nextLine();
+            x = ui.stringGetter();
         }
     }
 
@@ -67,21 +65,20 @@ public class TheApp {
         System.out.println("Which ingredeient?\n");
         viewAllIngredients();
         System.out.println();
-        int y = input.nextInt();
-        input.nextLine();
+        int y = ui.intGetter();
         return y - 1;
     }
 
     private double getHowMuch() {
         System.out.println("How Much?");
 
-        double x = Double.parseDouble(input.nextLine());
+        double x = ui.doubleGetter();
         return (x);
     }
 
     private String getIngredientReson() {
         System.out.println("What Reson?");
-        return input.nextLine();
+        return ui.stringGetter();
     }
 
     private void viewAllRecips() {
@@ -113,7 +110,7 @@ public class TheApp {
 
     public static void main(String[] args) {
         TheApp a = new TheApp();
-
+        a.ui.menu();
         a.addIngredientsFromFile();
         a.addRecip();
         System.out.println(a.recips.get(a.getRecipPlace()).viewRecip());
