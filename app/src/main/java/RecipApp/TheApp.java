@@ -103,8 +103,7 @@ public class TheApp {
         System.out.println("Which Recip?\n");
         viewAllRecips();
         System.out.println();
-        int y = input.nextInt();
-        input.nextLine();
+        int y = ui.intGetter();
         return y - 1;
     }
 
