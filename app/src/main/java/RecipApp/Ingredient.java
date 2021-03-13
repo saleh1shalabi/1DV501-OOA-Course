@@ -28,11 +28,12 @@ public class Ingredient {
     name = newName;
   }
 
-  public void editPrice(double newPrice) {
+  public void editPrice(int newPrice) {
     price = newPrice;
   }
 
   public void editUnit(String newUnit) {
     unit = newUnit;
   }
+
 }

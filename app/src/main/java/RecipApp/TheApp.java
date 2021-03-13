@@ -1,7 +1,6 @@
 package RecipApp;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class TheApp {
 
@@ -15,6 +14,16 @@ public class TheApp {
     TheApp() {
         ingredients = new ArrayList<>();
         recips = new ArrayList<>();
+    }
+
+    public void viewAllIngredients() {
+
+        int x = 0;
+        for (Ingredient c : ingredients) {
+            x++;
+            System.out.print(x + ". " + c.getName());
+            System.out.println();
+        }
     }
 
     private void addIngredient() {
@@ -32,41 +41,51 @@ public class TheApp {
         ingredients.add(ing);
     }
 
-    private void viewAllIngredients() {
+    private void editIngredient() {
 
-        int x = 0;
-        for (Ingredient c : ingredients) {
-            x++;
-            System.out.print(x + ". " + c.getName());
-            System.out.println();
+        ui.ingredeientChoose();
+        viewAllIngredients();
+        int x = ui.intGetter() - 1;
+        ui.ingredeientEditMenu();
+        int y = ui.intGetter();
+        if (y == 1) {
+            System.out.println("what is the new name of " + ingredients.get(x).getName());
+            String name = ui.stringGetter();
+            ingredients.get(x).editName(name);
+        } else if (y == 2) {
+            System.out.println("The price is " + ingredients.get(x).getPrice());
+            System.out.println("what is the new price");
+            int price = ui.intGetter();
+            ingredients.get(x).editPrice(price);
+        } else if (y == 3) {
+            System.out.println("The Unit is " + ingredients.get(x).getUnit());
+            System.out.println("what is the new unit");
+            String name = ui.stringGetter();
+            ingredients.get(x).editUnit(name);
         }
     }
 
     private void addRecip() {
         System.out.println("What is the name of the new Recip?");
         recip = new Recip(ui.stringGetter());
-        addIngredientsToRecip();
+        addIngredientsToRecip(recip);
+        recip.makingWay();
         recips.add(recip);
+
     }
 
-    private void addIngredientsToRecip() {
+    public void addIngredientsToRecip(Recip recip) {
         System.out.println("ADD new ingredient!");
         String x = "";
 
         while (!(x.equals("n") || x.equals("N"))) {
-            recip.addIngredient(ingredients.get(getIngredientPlace()), getHowMuch(), getIngredientReson());
+            ui.ingredeientChoose();
+            viewAllIngredients();
+            recip.addIngredient(ingredients.get(ui.intGetter() - 1), getHowMuch(), getIngredientReson());
             System.out.println("ADD new ingredient? (for no n)");
 
             x = ui.stringGetter();
         }
-    }
-
-    private int getIngredientPlace() {
-        System.out.println("Which ingredeient?\n");
-        viewAllIngredients();
-        System.out.println();
-        int y = ui.intGetter();
-        return y - 1;
     }
 
     private double getHowMuch() {
@@ -99,19 +118,99 @@ public class TheApp {
         }
     }
 
-    private int getRecipPlace() {
-        System.out.println("Which Recip?\n");
-        viewAllRecips();
-        System.out.println();
-        int y = ui.intGetter();
-        return y - 1;
-    }
-
     public static void main(String[] args) {
         TheApp a = new TheApp();
-        a.ui.menu();
         a.addIngredientsFromFile();
-        a.addRecip();
-        System.out.println(a.recips.get(a.getRecipPlace()).viewRecip());
+        int choose = 100;
+        while (choose != 0) {
+            a.ui.menu();
+            choose = a.ui.intGetter();
+            if (choose == 1) {
+                a.viewAllIngredients();
+            } else if (choose == 2) {
+                a.addIngredient();
+            } else if (choose == 3) {
+                a.editIngredient();
+            } else if (choose == 4) {
+                a.removeIngredient();
+            } else if (choose == 5) {
+                a.ui.recipView();
+                int ww = a.ui.intGetter();
+                if (ww == 1) {
+                    a.viewAllRecips();
+                } else if (ww == 2) {
+                    a.viewAllRecips();
+                    System.out.println(a.recips.get(a.ui.intGetter() - 1).viewRecip());
+                }
+            } else if (choose == 6) {
+                a.addRecip();
+            } else if (choose == 7) {
+                a.editRecip();
+            } else {
+                continue;
+            }
+
+        }
+    }
+
+    private void editRecip() {
+        System.out.println("All Recips");
+        viewAllRecips();
+        int recipIndex = ui.intGetter() - 1;
+        ui.recipEditMenu();
+        int w = ui.intGetter();
+        while (w != 0) {
+            ui.recipEditMenu();
+            w = ui.intGetter();
+            if (w == 1) {
+                recips.get(recipIndex).editName();
+            } else if (w == 2) {
+                recipEditer(recipIndex);
+            } else if (w == 3) {
+                continue;
+            } else {
+                ui.wronger();
+            }
+        }
+    }
+
+    private void recipEditer(int recipIndex) {
+        ui.recipEditIngredientMenu();
+        int ww = ui.intGetter();
+        while (ww != 0) {
+            ui.recipEditIngredientMenu();
+            ww = ui.intGetter();
+            if (ww == 1) {
+                addIngredientsToRecip(recips.get(recipIndex));
+            } else if (ww == 2) {
+                System.out.println("wich one ");
+                recips.get(recipIndex).viewRecip();
+                recips.get(recipIndex).editIngredientAmount(ui.intGetter() - 1);
+            } else if (ww == 3) {
+                System.out.println("wich one ");
+                recips.get(recipIndex).viewRecip();
+                recips.get(recipIndex).editIngredientComment(ui.intGetter() - 1);
+            } else if (ww == 4) {
+                recips.get(recipIndex).getIngredients();
+                recips.get(recipIndex).removeIngredient(ui.intGetter() - 1);
+            } else {
+                ui.wronger();
+            }
+        }
+    }
+
+    private void removeIngredient() {
+        System.out.println("Choose the Ingredient to remove");
+        viewAllIngredients();
+        int x = ui.intGetter();
+        System.out.println("Are u sure? (y for yes)");
+        String y = ui.stringGetter();
+        if (y.equals("y") || y.equals("Y")) {
+            ingredients.remove(x - 1);
+            System.out.println("the ingredient have been removed");
+
+        } else {
+            System.out.println("avbryter");
+        }
     }
 }
