@@ -1,14 +1,15 @@
 package RecipApp;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class TheApp {
 
     private Scanner input;
 
-    public ArrayList<Ingredient> ingredients;
-    public ArrayList<Recip> recips;
+    public List<Ingredient> ingredients;
+    public List<Recip> recips;
 
     private Ingredient ing;
 
