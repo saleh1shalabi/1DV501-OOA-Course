@@ -30,13 +30,12 @@ public class TheApp {
 
         double pr = Double.parseDouble(input.nextLine());
 
-        input.nextLine();
-
         Ingredient ing = (new Ingredient(ne, mg, pr));
         ingredients.add(ing);
     }
 
     private void viewAllIngredients() {
+
         int x = 0;
         for (Ingredient c : ingredients) {
             x++;
@@ -65,6 +64,7 @@ public class TheApp {
     }
 
     private int getIngredientPlace() {
+        System.out.println("Which ingredeient?\n");
         viewAllIngredients();
         System.out.println();
         int y = input.nextInt();
@@ -72,11 +72,10 @@ public class TheApp {
         return y - 1;
     }
 
-    private int getHowMuch() {
+    private double getHowMuch() {
         System.out.println("How Much?");
 
-        int x = input.nextInt();
-        input.nextLine();
+        double x = Double.parseDouble(input.nextLine());
         return (x);
     }
 
@@ -86,6 +85,7 @@ public class TheApp {
     }
 
     private void viewAllRecips() {
+
         int x = 1;
         for (Recip c : recips) {
             System.out.print(x + ". " + c.getName() + "\n");
@@ -102,13 +102,20 @@ public class TheApp {
         }
     }
 
+    private int getRecipPlace() {
+        System.out.println("Which Recip?\n");
+        viewAllRecips();
+        System.out.println();
+        int y = input.nextInt();
+        input.nextLine();
+        return y - 1;
+    }
+
     public static void main(String[] args) {
         TheApp a = new TheApp();
 
         a.addIngredientsFromFile();
-
-        a.viewAllIngredients();
-        a.getIngredientPlace();
-
+        a.addRecip();
+        System.out.println(a.recips.get(a.getRecipPlace()).viewRecip());
     }
 }

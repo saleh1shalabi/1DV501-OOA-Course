@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class FileManager {
 
-  private String pathToIngredients = "/home/saleh/Skrivbord/java/assignment-4/app/files/ingredientsFile.csv";
+  private String pathToIngredients = "./app/files/ingredientsFile.csv";
   // private String pathToRecips = "";
 
   public ArrayList<ArrayList> reader() {
@@ -41,4 +41,12 @@ public class FileManager {
 
   }
 
+  public void writer() {
+    try {
+      FileWriter ingWriter = new FileWriter("test.csv");
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }

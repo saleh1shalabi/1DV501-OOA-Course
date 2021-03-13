@@ -7,7 +7,7 @@ public class Recip {
 
   private String name;
   private ArrayList<Ingredient> ingredients;
-  private ArrayList<Integer> meny;
+  private ArrayList<Double> meny;
   private ArrayList<String> comments;
 
   // private Scanner input;
@@ -21,7 +21,7 @@ public class Recip {
     recipt = new ArrayList<>();
   }
 
-  public void addIngredient(Ingredient ingredient, int much, String reason) {
+  public void addIngredient(Ingredient ingredient, double much, String reason) {
     addComment(reason);
     addMuchOfIng(much);
     ingredients.add(ingredient);
@@ -30,7 +30,7 @@ public class Recip {
     recipt.add(comments);
   }
 
-  protected void addMuchOfIng(int mush) {
+  protected void addMuchOfIng(double mush) {
     meny.add(mush);
   }
 
