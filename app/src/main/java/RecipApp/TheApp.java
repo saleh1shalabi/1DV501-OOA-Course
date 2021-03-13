@@ -6,13 +6,10 @@ import java.util.Scanner;
 
 public class TheApp {
 
+    private FileManager file = new FileManager();
     private Scanner input;
-
-    public List<Ingredient> ingredients;
-    public List<Recip> recips;
-
-    private Ingredient ing;
-
+    public ArrayList<Ingredient> ingredients;
+    public ArrayList<Recip> recips;
     private Recip recip;
 
     TheApp() {
@@ -35,7 +32,7 @@ public class TheApp {
 
         input.nextLine();
 
-        ing = (new Ingredient(ne, mg, pr));
+        Ingredient ing = (new Ingredient(ne, mg, pr));
         ingredients.add(ing);
     }
 
@@ -43,7 +40,8 @@ public class TheApp {
         int x = 0;
         for (Ingredient c : ingredients) {
             x++;
-            System.out.print(x + ". " + c.getName() + " : ");
+            System.out.print(x + ". " + c.getName());
+            System.out.println();
         }
     }
 
@@ -95,19 +93,22 @@ public class TheApp {
         }
     }
 
+    private void addIngredientsFromFile() {
+        ArrayList<ArrayList> g = file.reader();
+        for (ArrayList<String> ings : g) {
+
+            Ingredient ing = (new Ingredient(ings.get(0), ings.get(1), Double.parseDouble(ings.get(2))));
+            ingredients.add(ing);
+        }
+    }
+
     public static void main(String[] args) {
         TheApp a = new TheApp();
 
-        for (int x = 0; x < 4; x++)
-            a.addIngredient();
+        a.addIngredientsFromFile();
 
-        for (int x = 0; x < 2; x++)
-            a.addRecip();
+        a.viewAllIngredients();
+        a.getIngredientPlace();
 
-        a.viewAllRecips();
-
-        for (Recip S : a.recips) {
-            System.out.println(S.viewRecip());
-        }
     }
 }

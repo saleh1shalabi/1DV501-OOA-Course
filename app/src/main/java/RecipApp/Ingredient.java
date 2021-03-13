@@ -9,9 +9,8 @@ public class Ingredient {
     this.name = name;
     this.unit = unit;
     this.price = price;
-    
+
   }
-    
 
   public String getName() {
     return name;
@@ -28,11 +27,11 @@ public class Ingredient {
   public void editName(String newName) {
     name = newName;
   }
-  
+
   public void editPrice(double newPrice) {
     price = newPrice;
   }
-  
+
   public void editUnit(String newUnit) {
     unit = newUnit;
   }

@@ -10,7 +10,6 @@ public class Recip {
   private ArrayList<Integer> meny;
   private ArrayList<String> comments;
 
-
   // private Scanner input;
   private ArrayList<ArrayList<?>> recipt;
 
@@ -30,11 +29,11 @@ public class Recip {
     recipt.add(meny);
     recipt.add(comments);
   }
-  
+
   protected void addMuchOfIng(int mush) {
     meny.add(mush);
   }
-  
+
   protected void addComment(String reason) {
     comments.add(reason);
   }
@@ -44,11 +43,11 @@ public class Recip {
   }
 
   public String getIngredients() {
-    String x = ""; 
-    
+    String x = "";
+
     for (Ingredient c : ingredients) {
       x += c.getName() + " ";
-    } 
+    }
     return x;
   }
 
@@ -62,12 +61,10 @@ public class Recip {
 
   public String viewRecip() {
     String x = "";
-    for (int c = 0; c < ingredients.size(); c++){
+    for (int c = 0; c < ingredients.size(); c++) {
       x += (ingredients.get(c).getName() + " : " + meny.get(c) + " : " + comments.get(c) + "\n");
     }
     return x;
   }
 
-  
 }
-
