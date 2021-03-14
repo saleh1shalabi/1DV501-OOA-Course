@@ -119,30 +119,36 @@ public class TheApp {
     }
 
     private void addRecipsFromFile() {
+
         ArrayList<String> recipz = file.recipReader();
+
         for (String recp : recipz) {
+
             String[] rec = recp.split(",");
             String name = rec[0];
             Recip recip = new Recip(name);
-
-            // ss
             String ingrediens = rec[1].replace("||", ",");
-
             String[] ingrediensFromRecip = ingrediens.split(",");
 
             for (String ing : ingrediensFromRecip) {
+
                 String thisOne = ing.replace(":", ",");
-                String[] shitdo = thisOne.split(",");
-                String theIngredient = shitdo[0];
+
+                String[] theOtherOne = thisOne.split(",");
+                String theIngredient = theOtherOne[0].replace(" ", "");
+                System.out.println(theIngredient + theIngredient.length());
                 for (Ingredient ingr : ingredients) {
-                    if (ingr.getName().equals(theIngredient)) {
-                        recip.addIngredient(ingr, Double.parseDouble(shitdo[1]), shitdo[2]);
+                    System.out.println(ingr.getName() + ingr.getName().length());
+                    if (theIngredient.equals(ingr.getName())) {
+                        System.out.println("Hej");
+                        recip.addIngredient(ingr, Double.parseDouble(theOtherOne[1]), theOtherOne[2]);
                         break;
                     }
                 }
             }
             recips.add(recip);
         }
+
     }
 
     private void editRecip() {

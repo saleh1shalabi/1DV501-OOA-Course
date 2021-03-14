@@ -10,7 +10,6 @@ public class Recip {
   private ArrayList<String> comments;
   private UiConsoleSc ui = new UiConsoleSc();
   private ArrayList<String> wayToMake;
-
   private ArrayList<ArrayList<?>> recipt;
 
   public Recip(String name) {
@@ -52,12 +51,12 @@ public class Recip {
   }
 
   public String getIngredients() {
-    String x = "";
+    StringBuilder x = new StringBuilder();
 
     for (Ingredient c : ingredients) {
-      x += c.getName() + " ";
+      x.append(c.getName() + " ");
     }
-    return x;
+    return x.toString();
   }
 
   public int getPrice() {
@@ -69,19 +68,19 @@ public class Recip {
   }
 
   public String viewRecip() {
-    String x = "";
+    StringBuilder x = new StringBuilder();
     for (int c = 0; c < ingredients.size(); c++) {
-      x += (ingredients.get(c).getName() + " : " + meny.get(c) + " : " + comments.get(c) + "||");
+      x.append(ingredients.get(c).getName() + " : " + meny.get(c) + " : " + comments.get(c) + "||");
     }
-    return x;
+    return x.toString();
   }
 
   public String viewWayMake() {
-    String x = "";
+    StringBuilder x = new StringBuilder();
     for (String c : wayToMake) {
-      x += c + "||";
+      x.append(c + "||");
     }
-    return x;
+    return x.toString();
   }
 
   public void editName() {
