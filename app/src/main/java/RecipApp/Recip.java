@@ -76,9 +76,23 @@ public class Recip {
     for (int c = 0; c < ingredients.size(); c++) {
       x += (ingredients.get(c).getName() + " : " + meny.get(c) + " : " + comments.get(c) + "\n");
     }
-    // for (String c : wayToMake) {
-    // x += c + "\n";
-    // }
+    for (String c : wayToMake) {
+      x += c + "\n";
+    }
+    return x;
+  }
+
+  public String recipToWrite() {
+    String x = "";
+    for (int c = 0; c < ingredients.size(); c++) {
+      x += (ingredients.get(c).getName() + ":" + meny.get(c) + ":" + comments.get(c) + "||");
+    }
+    if (wayToMake.isEmpty() == false) {
+      x += ",";
+      for (String c : wayToMake) {
+        x += c + "||";
+      }
+    }
     return x;
   }
 

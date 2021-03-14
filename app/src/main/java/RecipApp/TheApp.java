@@ -110,7 +110,7 @@ public class TheApp {
     }
 
     private void addIngredientsFromFile() {
-        ArrayList<ArrayList> g = file.reader();
+        ArrayList<ArrayList> g = file.ingredientReader();
         for (ArrayList<String> ings : g) {
 
             Ingredient ing = (new Ingredient(ings.get(0), ings.get(1), Double.parseDouble(ings.get(2))));
@@ -118,38 +118,30 @@ public class TheApp {
         }
     }
 
-    public static void main(String[] args) {
-        TheApp a = new TheApp();
-        a.addIngredientsFromFile();
-        int choose = 100;
-        while (choose != 0) {
-            a.ui.menu();
-            choose = a.ui.intGetter();
-            if (choose == 1) {
-                a.viewAllIngredients();
-            } else if (choose == 2) {
-                a.addIngredient();
-            } else if (choose == 3) {
-                a.editIngredient();
-            } else if (choose == 4) {
-                a.removeIngredient();
-            } else if (choose == 5) {
-                a.ui.recipView();
-                int ww = a.ui.intGetter();
-                if (ww == 1) {
-                    a.viewAllRecips();
-                } else if (ww == 2) {
-                    a.viewAllRecips();
-                    System.out.println(a.recips.get(a.ui.intGetter() - 1).viewRecip());
-                }
-            } else if (choose == 6) {
-                a.addRecip();
-            } else if (choose == 7) {
-                a.editRecip();
-            } else {
-                continue;
-            }
+    private void addRecipsFromFile() {
+        ArrayList<String> recipz = file.recipReader();
+        for (String recp : recipz) {
+            String[] rec = recp.split(",");
+            String name = rec[0];
+            Recip recip = new Recip(name);
 
+            // ss
+            String ingrediens = rec[1].replace("||", ",");
+
+            String[] ingrediensFromRecip = ingrediens.split(",");
+
+            for (String ing : ingrediensFromRecip) {
+                String thisOne = ing.replace(":", ",");
+                String[] shitdo = thisOne.split(",");
+                String theIngredient = shitdo[0];
+                for (Ingredient ingr : ingredients) {
+                    if (ingr.getName().equals(theIngredient)) {
+                        recip.addIngredient(ingr, Double.parseDouble(shitdo[1]), shitdo[2]);
+                        break;
+                    }
+                }
+            }
+            recips.add(recip);
         }
     }
 
@@ -212,5 +204,49 @@ public class TheApp {
         } else {
             System.out.println("avbryter");
         }
+    }
+
+    private void writeRecipsToFile() {
+        file.writer(recips);
+    }
+
+    private void run() {
+        addIngredientsFromFile();
+        addRecipsFromFile();
+        int choose = 100;
+        while (choose != 0) {
+            ui.menu();
+            choose = ui.intGetter();
+            if (choose == 1) {
+                viewAllIngredients();
+            } else if (choose == 2) {
+                addIngredient();
+            } else if (choose == 3) {
+                editIngredient();
+            } else if (choose == 4) {
+                removeIngredient();
+            } else if (choose == 5) {
+                ui.recipView();
+                int ww = ui.intGetter();
+                if (ww == 1) {
+                    viewAllRecips();
+                } else if (ww == 2) {
+                    viewAllRecips();
+                    System.out.println(recips.get(ui.intGetter() - 1).viewRecip());
+                }
+            } else if (choose == 6) {
+                addRecip();
+            } else if (choose == 7) {
+                editRecip();
+            } else {
+                continue;
+            }
+        }
+        writeRecipsToFile();
+    }
+
+    public static void main(String[] args) {
+        TheApp a = new TheApp();
+        a.run();
     }
 }
