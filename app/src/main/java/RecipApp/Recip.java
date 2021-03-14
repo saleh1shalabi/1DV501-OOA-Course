@@ -1,19 +1,16 @@
 package RecipApp;
 
 import java.util.ArrayList;
-// import java.util.Scanner;
 
 public class Recip {
 
   private String name;
-  private TheApp a = new TheApp();
   private ArrayList<Ingredient> ingredients;
   private ArrayList<Double> meny;
   private ArrayList<String> comments;
   private UiConsoleSc ui = new UiConsoleSc();
   private ArrayList<String> wayToMake;
 
-  // private Scanner input;
   private ArrayList<ArrayList<?>> recipt;
 
   public Recip(String name) {
@@ -74,24 +71,15 @@ public class Recip {
   public String viewRecip() {
     String x = "";
     for (int c = 0; c < ingredients.size(); c++) {
-      x += (ingredients.get(c).getName() + " : " + meny.get(c) + " : " + comments.get(c) + "\n");
-    }
-    for (String c : wayToMake) {
-      x += c + "\n";
+      x += (ingredients.get(c).getName() + " : " + meny.get(c) + " : " + comments.get(c) + "||");
     }
     return x;
   }
 
-  public String recipToWrite() {
+  public String viewWayMake() {
     String x = "";
-    for (int c = 0; c < ingredients.size(); c++) {
-      x += (ingredients.get(c).getName() + ":" + meny.get(c) + ":" + comments.get(c) + "||");
-    }
-    if (wayToMake.isEmpty() == false) {
-      x += ",";
-      for (String c : wayToMake) {
-        x += c + "||";
-      }
+    for (String c : wayToMake) {
+      x += c + "||";
     }
     return x;
   }
@@ -117,6 +105,5 @@ public class Recip {
     ingredients.remove(index);
     meny.remove(index);
     comments.remove(index);
-
   }
 }

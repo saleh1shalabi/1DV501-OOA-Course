@@ -12,14 +12,13 @@ public class FileManager {
   private String pathToIngredients = "./app/files/ingredientsFile.csv";
   private String pathToRecips = "./app/files/recipView.csv";
 
-  public ArrayList<ArrayList> ingredientReader() {
+  public ArrayList<ArrayList<String>> ingredientReader() {
 
     try {
 
       BufferedReader ingReader = new BufferedReader(new FileReader(pathToIngredients));
-      ingReader.readLine();
       String line;
-      ArrayList<ArrayList> saker = new ArrayList<>();
+      ArrayList<ArrayList<String>> saker = new ArrayList<>();
 
       while ((line = ingReader.readLine()) != null) {
         String[] s = line.split(",");
@@ -39,15 +38,14 @@ public class FileManager {
   }
 
   public ArrayList<String> recipReader() {
-
     try {
-
       BufferedReader recipReader = new BufferedReader(new FileReader(pathToRecips));
       String line;
       ArrayList<String> recips = new ArrayList<>();
       while ((line = recipReader.readLine()) != null) {
         recips.add(line);
       }
+      recipReader.close();
       return recips;
     } catch (IOException e) {
       e.printStackTrace();
@@ -55,14 +53,25 @@ public class FileManager {
     }
   }
 
-  public void writer(ArrayList<Recip> recips) {
+  public void ingredientWriter(ArrayList<Ingredient> ingredients) {
     try {
-      FileWriter ingWriter = new FileWriter("./app/files/recipView.csv");
-      for (Recip recip : recips) {
-
-        ingWriter.append(recip.getName() + "," + recip.recipToWrite() + "\n");
+      FileWriter ingWriter = new FileWriter("./app/files/ingredientsFile.csv");
+      for (Ingredient ingredient : ingredients) {
+        ingWriter.append(ingredient.getName() + "," + ingredient.getUnit() + "," + ingredient.getPrice() + "\n");
       }
       ingWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void recipWriter(ArrayList<Recip> recips) {
+    try {
+      FileWriter recipWriter = new FileWriter("./app/files/recipView.csv");
+      for (Recip recip : recips) {
+        recipWriter.append(recip.getName() + "," + recip.viewRecip() + "," + recip.viewWayMake() + "\n");
+      }
+      recipWriter.close();
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -110,7 +110,7 @@ public class TheApp {
     }
 
     private void addIngredientsFromFile() {
-        ArrayList<ArrayList> g = file.ingredientReader();
+        ArrayList<ArrayList<String>> g = file.ingredientReader();
         for (ArrayList<String> ings : g) {
 
             Ingredient ing = (new Ingredient(ings.get(0), ings.get(1), Double.parseDouble(ings.get(2))));
@@ -206,13 +206,18 @@ public class TheApp {
         }
     }
 
-    private void writeRecipsToFile() {
-        file.writer(recips);
+    private void opening() {
+        addIngredientsFromFile();
+        addRecipsFromFile();
+    }
+
+    private void closing() {
+        file.ingredientWriter(ingredients);
+        file.recipWriter(recips);
     }
 
     private void run() {
-        addIngredientsFromFile();
-        addRecipsFromFile();
+        opening();
         int choose = 100;
         while (choose != 0) {
             ui.menu();
@@ -242,7 +247,8 @@ public class TheApp {
                 continue;
             }
         }
-        writeRecipsToFile();
+
+        closing();
     }
 
     public static void main(String[] args) {
