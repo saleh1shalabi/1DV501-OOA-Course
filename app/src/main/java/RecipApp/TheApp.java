@@ -16,14 +16,14 @@ public class TheApp {
         recips = new ArrayList<>();
     }
 
-    public void viewAllIngredients() {
-
+    public void viewIngredients() {
         int x = 0;
         for (Ingredient c : ingredients) {
             x++;
             System.out.print(x + ". " + c.getName());
             System.out.println();
         }
+        System.out.println("\n\n");
     }
 
     private void addIngredient() {
@@ -41,32 +41,8 @@ public class TheApp {
         ingredients.add(ing);
     }
 
-    private void editIngredient() {
-
-        ui.ingredeientChoose();
-        viewAllIngredients();
-        int x = ui.intGetter() - 1;
-        ui.ingredeientEditMenu();
-        int y = ui.intGetter();
-        if (y == 1) {
-            System.out.println("what is the new name of " + ingredients.get(x).getName());
-            String name = ui.stringGetter();
-            ingredients.get(x).editName(name);
-        } else if (y == 2) {
-            System.out.println("The price is " + ingredients.get(x).getPrice());
-            System.out.println("what is the new price");
-            int price = ui.intGetter();
-            ingredients.get(x).editPrice(price);
-        } else if (y == 3) {
-            System.out.println("The Unit is " + ingredients.get(x).getUnit());
-            System.out.println("what is the new unit");
-            String name = ui.stringGetter();
-            ingredients.get(x).editUnit(name);
-        }
-    }
-
     private void addRecip() {
-        System.out.println("What is the name of the new Recip?");
+        System.out.println("What is the name of the new Recip?\n");
         recip = new Recip(ui.stringGetter());
         addIngredientsToRecip(recip);
         recip.makingWay();
@@ -78,21 +54,23 @@ public class TheApp {
         System.out.println("ADD new ingredient!");
         String x = "";
 
-        while (!(x.equals("n") || x.equals("N"))) {
-            ui.ingredeientChoose();
-            viewAllIngredients();
-            recip.addIngredient(ingredients.get(ui.intGetter() - 1), getHowMuch(), getIngredientReson());
+        while (!(x.equalsIgnoreCase("n"))) {
+            viewIngredients();
+            int theIngredient = ui.intGetter() - 1;
+            while (theIngredient >= ingredients.size() || theIngredient == -1) {
+                ui.wronger();
+                System.out.println("Please Try To Insert A Right Value");
+                theIngredient = ui.intGetter();
+            }
+            recip.addIngredient(ingredients.get(theIngredient), getHowMuch(), getIngredientReson());
             System.out.println("ADD new ingredient? (for no n)");
-
             x = ui.stringGetter();
         }
     }
 
     private double getHowMuch() {
         System.out.println("How Much?");
-
-        double x = ui.doubleGetter();
-        return (x);
+        return ui.doubleGetter();
     }
 
     private String getIngredientReson() {
@@ -101,7 +79,6 @@ public class TheApp {
     }
 
     private void viewAllRecips() {
-
         int x = 1;
         for (Recip c : recips) {
             System.out.print(x + ". " + c.getName() + "\n");
@@ -110,103 +87,55 @@ public class TheApp {
     }
 
     private void addIngredientsFromFile() {
-        ArrayList<ArrayList<String>> g = file.ingredientReader();
-        for (ArrayList<String> ings : g) {
-
+        ArrayList<ArrayList<String>> fromFileIng = file.ingredientReader();
+        for (ArrayList<String> ings : fromFileIng) {
             Ingredient ing = (new Ingredient(ings.get(0), ings.get(1), Double.parseDouble(ings.get(2))));
             ingredients.add(ing);
         }
     }
 
     private void addRecipsFromFile() {
-
         ArrayList<String> recipz = file.recipReader();
-
         for (String recp : recipz) {
-
             String[] rec = recp.split(",");
             String name = rec[0];
             Recip recip = new Recip(name);
             String ingrediens = rec[1].replace("||", ",");
             String[] ingrediensFromRecip = ingrediens.split(",");
-
             for (String ing : ingrediensFromRecip) {
-
                 String thisOne = ing.replace(":", ",");
-
                 String[] theOtherOne = thisOne.split(",");
                 String theIngredient = theOtherOne[0].replace(" ", "");
-                System.out.println(theIngredient + theIngredient.length());
                 for (Ingredient ingr : ingredients) {
-                    System.out.println(ingr.getName() + ingr.getName().length());
                     if (theIngredient.equals(ingr.getName())) {
-                        System.out.println("Hej");
-                        recip.addIngredient(ingr, Double.parseDouble(theOtherOne[1]), theOtherOne[2]);
+
+                        while (theOtherOne[2].startsWith(" ")) {
+                            theOtherOne[2] = theOtherOne[2].substring(1, theOtherOne[2].length());
+                        }
+
+                        recip.addIngredient(ingr, Double.parseDouble(theOtherOne[1].replace(" ", "")), theOtherOne[2]);
                         break;
                     }
                 }
             }
             recips.add(recip);
         }
-
-    }
-
-    private void editRecip() {
-        System.out.println("All Recips");
-        viewAllRecips();
-        int recipIndex = ui.intGetter() - 1;
-        ui.recipEditMenu();
-        int w = ui.intGetter();
-        while (w != 0) {
-            ui.recipEditMenu();
-            w = ui.intGetter();
-            if (w == 1) {
-                recips.get(recipIndex).editName();
-            } else if (w == 2) {
-                recipEditer(recipIndex);
-            } else if (w == 3) {
-                continue;
-            } else {
-                ui.wronger();
-            }
-        }
-    }
-
-    private void recipEditer(int recipIndex) {
-        ui.recipEditIngredientMenu();
-        int ww = ui.intGetter();
-        while (ww != 0) {
-            ui.recipEditIngredientMenu();
-            ww = ui.intGetter();
-            if (ww == 1) {
-                addIngredientsToRecip(recips.get(recipIndex));
-            } else if (ww == 2) {
-                System.out.println("wich one ");
-                recips.get(recipIndex).viewRecip();
-                recips.get(recipIndex).editIngredientAmount(ui.intGetter() - 1);
-            } else if (ww == 3) {
-                System.out.println("wich one ");
-                recips.get(recipIndex).viewRecip();
-                recips.get(recipIndex).editIngredientComment(ui.intGetter() - 1);
-            } else if (ww == 4) {
-                recips.get(recipIndex).getIngredients();
-                recips.get(recipIndex).removeIngredient(ui.intGetter() - 1);
-            } else {
-                ui.wronger();
-            }
-        }
     }
 
     private void removeIngredient() {
-        System.out.println("Choose the Ingredient to remove");
-        viewAllIngredients();
-        int x = ui.intGetter();
+        ui.standard();
+        viewIngredients();
+        int x = ui.intGetter() - 1;
+        while (x >= ingredients.size() || x == -1) {
+            ui.wronger();
+            System.out.println("Please Try To Insert A Right Value");
+            x = ui.intGetter() - 1;
+        }
         System.out.println("Are u sure? (y for yes)");
         String y = ui.stringGetter();
         if (y.equals("y") || y.equals("Y")) {
-            ingredients.remove(x - 1);
+            ingredients.remove(x);
             System.out.println("the ingredient have been removed");
-
         } else {
             System.out.println("avbryter");
         }
@@ -222,39 +151,224 @@ public class TheApp {
         file.recipWriter(recips);
     }
 
+    private void ingredientMenu() {
+        int ingVal = 100;
+        while (ingVal != 0) {
+            ui.ingredient();
+            ingVal = ui.intGetter();
+            if (ingVal == 1) {
+                // view ingredients
+                ui.ingredientView();
+                int choose2 = ui.intGetter();
+                if (choose2 == 1) {
+                    // all ingr
+                    viewIngredients();
+
+                } else if (choose2 == 2) {
+                    // specieal one
+                    ui.standard();
+                    viewIngredients();
+                    int ingredientIndex = ui.intGetter() - 1;
+                    while (ingredientIndex >= ingredients.size() || ingredientIndex == -1) {
+                        ui.wronger();
+                        System.out.println("Please Try To Insert A Right Value");
+                        ingredientIndex = ui.intGetter() - 1;
+                    }
+                    System.out.println("Name: " + ingredients.get(ingredientIndex).getName());
+                    System.out.println("Price: " + ingredients.get(ingredientIndex).getPrice());
+                    System.out.println("Unit: " + ingredients.get(ingredientIndex).getUnit());
+                } else
+                    ui.wronger();
+
+            } else if (ingVal == 2) {
+                // add one new
+                addIngredient();
+
+            } else if (ingVal == 3) {
+                // edit ingredient
+                ui.standard();
+                viewIngredients();
+                int ingIndex = ui.intGetter() - 1;
+                while (ingIndex >= ingredients.size() || ingIndex == -1) {
+                    ui.wronger();
+                    System.out.println("Please Try To Insert A Right Value");
+                    ingIndex = ui.intGetter() - 1;
+                }
+
+                int editVal = 100;
+                while (editVal != 0) {
+                    ui.ingredeientEdit();
+                    editVal = ui.intGetter();
+                    if (editVal == 1) {
+                        // name
+                        System.out.println("New name Of " + ingredients.get(ingIndex).getName());
+                        ingredients.get(ingIndex).editName(ui.stringGetter());
+                    } else if (editVal == 2) {
+                        // price
+                        System.out.println("Price Of " + ingredients.get(ingIndex).getName() + "are "
+                                + ingredients.get(ingIndex).getPrice());
+                        System.out.println("New Price");
+                        ingredients.get(ingIndex).editPrice(ui.doubleGetter());
+                    } else if (editVal == 3) {
+                        // unit
+                        System.out.println("Unit Of " + ingredients.get(ingIndex).getName() + "are "
+                                + ingredients.get(ingIndex).getUnit());
+                        System.out.println("New Unit");
+                        ingredients.get(ingIndex).editUnit(ui.stringGetter());
+                    } else {
+                        ui.wronger();
+                    }
+                }
+            } else if (ingVal == 4) {
+                // remove ingredient
+                removeIngredient();
+            } else {
+                ui.wronger();
+            }
+        }
+    }
+
+    private void recipMenu() {
+        // recips
+
+        int choose2 = 100;
+        while (choose2 != 0) {
+            ui.recip();
+            choose2 = ui.intGetter();
+            if (choose2 == 1) {
+                // view recip
+                ui.recipView();
+                int viewVal = ui.intGetter();
+
+                if (viewVal == 1) {
+                    // all recips
+                    viewAllRecips();
+                } else if (viewVal == 2) {
+                    // specieal recip view
+                    ui.standard();
+                    viewAllRecips();
+                    int recipIndex = ui.intGetter() - 1;
+                    while (recipIndex >= recips.size() || recipIndex == -1) {
+                        ui.wronger();
+                        System.out.println("Please Try To Insert A Right Value");
+                        recipIndex = ui.intGetter() - 1;
+                    }
+                    System.out.println(recips.get(recipIndex).viewRecip());
+                } else {
+                    ui.wronger();
+                }
+            } else if (choose2 == 2) {
+                // add recip
+                addRecip();
+            } else if (choose2 == 3) {
+                // edit recip
+                recipEditer();
+            }
+        }
+    }
+
+    private void recipEditer() {
+        ui.standard();
+        viewAllRecips();
+
+        int recipIndex = ui.intGetter() - 1;
+        while (recipIndex >= recips.size() || recipIndex == -1) {
+            ui.wronger();
+            System.out.println("Please Try To Insert A Right Value");
+            recipIndex = ui.intGetter() - 1;
+        }
+
+        int editVal = 100;
+        while (editVal != 0) {
+            ui.recipEdit();
+            editVal = ui.intGetter();
+            if (editVal == 1) {
+                // edit recip name
+                recips.get(recipIndex).editName();
+            } else if (editVal == 2) {
+                recipIngredientEditor(recipIndex);
+            } else if (editVal == 3) {
+                // edit making way
+                System.out.println(recips.get(recipIndex).viewRecip());
+                recips.get(recipIndex).editMakingWay();
+            } else {
+                ui.wronger();
+            }
+
+        }
+    }
+
+    private void recipIngredientEditor(int recipIndex) {
+        // recip ingredients
+        int editIngVal = 100;
+        while (editIngVal != 0) {
+            ui.recipEditIngredient();
+            editIngVal = ui.intGetter();
+            if (editIngVal == 1) {
+                // add ingredient to recip
+                addIngredientsToRecip(recips.get(recipIndex));
+            } else if (editIngVal == 2) {
+                // ingredient amount
+                ui.standard();
+                System.out.println(recips.get(recipIndex).getIngredients());
+
+                int ingIndex = ui.intGetter() - 1;
+                while (ingIndex >= recips.get(recipIndex).ingredientsSize() || ingIndex == -1) {
+                    ui.wronger();
+                    System.out.println("Please Try To Insert A Right Value");
+                    ingIndex = ui.intGetter() - 1;
+                }
+                ui.newValue();
+                recips.get(recipIndex).editIngredientAmount(ingIndex);
+
+            } else if (editIngVal == 3) {
+                // ingredient comment
+                ui.standard();
+                System.out.println(recips.get(recipIndex).getIngredients());
+                int ingIndex = ui.intGetter() - 1;
+                while (ingIndex >= recips.get(recipIndex).ingredientsSize() || ingIndex == -1) {
+                    ui.wronger();
+                    System.out.println("Please Try To Insert A Right Value");
+                    ingIndex = ui.intGetter() - 1;
+                }
+                ui.newValue();
+                recips.get(recipIndex).editIngredientComment(ingIndex);
+
+            } else if (editIngVal == 4) {
+                // remove ingredient
+                ui.standard();
+                System.out.println(recips.get(recipIndex).getIngredients());
+                int ingIndex = ui.intGetter() - 1;
+                while (ingIndex >= recips.get(recipIndex).ingredientsSize() || ingIndex == -1) {
+                    ui.wronger();
+                    System.out.println("Please Try To Insert A Right Value");
+                    ingIndex = ui.intGetter() - 1;
+                }
+                recips.get(recipIndex).removeIngredientFromRecip(ingIndex);
+
+            } else {
+                ui.wronger();
+            }
+        }
+    }
+
     private void run() {
         opening();
         int choose = 100;
+
         while (choose != 0) {
             ui.menu();
             choose = ui.intGetter();
             if (choose == 1) {
-                viewAllIngredients();
+                // ingredients
+                ingredientMenu();
             } else if (choose == 2) {
-                addIngredient();
-            } else if (choose == 3) {
-                editIngredient();
-            } else if (choose == 4) {
-                removeIngredient();
-            } else if (choose == 5) {
-                ui.recipView();
-                int ww = ui.intGetter();
-                if (ww == 1) {
-                    viewAllRecips();
-                } else if (ww == 2) {
-                    viewAllRecips();
-                    System.out.println(recips.get(ui.intGetter() - 1).viewRecip());
-                }
-            } else if (choose == 6) {
-                addRecip();
-            } else if (choose == 7) {
-                editRecip();
-            } else {
-                continue;
+                recipMenu();
             }
         }
 
         closing();
+
     }
 
     public static void main(String[] args) {

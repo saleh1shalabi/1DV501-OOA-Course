@@ -24,6 +24,7 @@ public class Recip {
 
   public void makingWay() {
     do {
+      System.out.println("(n) for done");
       wayToMake.add(ui.stringGetter());
     } while (!(ui.stringGetter().equals("n") || ui.stringGetter().equals("N")));
 
@@ -51,10 +52,13 @@ public class Recip {
   }
 
   public String getIngredients() {
+    int y = 1;
     StringBuilder x = new StringBuilder();
 
-    for (Ingredient c : ingredients) {
-      x.append(c.getName() + " ");
+    for (int c = 0; c < ingredients.size(); c++) {
+      x.append(y);
+      x.append(". " + ingredients.get(c).getName() + " : " + meny.get(c) + " : " + comments.get(c) + "\n");
+      y++;
     }
     return x.toString();
   }
@@ -83,6 +87,10 @@ public class Recip {
     return x.toString();
   }
 
+  public void editMakingWay() {
+    System.out.println("Here it works");
+  }
+
   public void editName() {
     System.out.println("What is the new name of the recip " + getName());
     String newName = ui.stringGetter();
@@ -100,9 +108,18 @@ public class Recip {
 
   }
 
-  public void removeIngredient(int index) {
-    ingredients.remove(index);
-    meny.remove(index);
-    comments.remove(index);
+  public void removeIngredientFromRecip(int index) {
+    System.out.println("Are you sure (y)");
+    if (ui.stringGetter().equalsIgnoreCase("y")) {
+      ingredients.remove(index);
+      meny.remove(index);
+      comments.remove(index);
+    } else {
+      System.out.println("Opretion Aborted");
+    }
+  }
+
+  public int ingredientsSize() {
+    return ingredients.size();
   }
 }

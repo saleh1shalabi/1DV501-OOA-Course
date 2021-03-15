@@ -28,7 +28,7 @@ public class Ingredient {
     name = newName;
   }
 
-  public void editPrice(int newPrice) {
+  public void editPrice(Double newPrice) {
     price = newPrice;
   }
 
