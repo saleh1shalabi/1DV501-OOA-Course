@@ -22,11 +22,16 @@ public class Recip {
 
   }
 
+  public void makeWayFromFile(String steg) {
+    wayToMake.add(steg);
+  }
+
   public void makingWay() {
+    System.out.println("How it's Done ?");
     do {
-      System.out.println("(n) for done");
+      System.out.println("(N) When Finish");
       wayToMake.add(ui.stringGetter());
-    } while (!(ui.stringGetter().equals("n") || ui.stringGetter().equals("N")));
+    } while (!(ui.stringGetter().equalsIgnoreCase("n")));
 
   }
 
@@ -71,18 +76,25 @@ public class Recip {
     return x;
   }
 
-  public String viewRecip() {
+  public String writeRecip() {
     StringBuilder x = new StringBuilder();
     for (int c = 0; c < ingredients.size(); c++) {
       x.append(ingredients.get(c).getName() + " : " + meny.get(c) + " : " + comments.get(c) + "||");
+    }
+    x.append(",");
+    for (String step : wayToMake) {
+      x.append(step + "||");
     }
     return x.toString();
   }
 
   public String viewWayMake() {
+    int y = 1;
     StringBuilder x = new StringBuilder();
     for (String c : wayToMake) {
-      x.append(c + "||");
+      x.append(y + ". ");
+      x.append(c + "\n");
+      y++;
     }
     return x.toString();
   }

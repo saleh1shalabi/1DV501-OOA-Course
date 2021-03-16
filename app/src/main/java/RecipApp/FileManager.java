@@ -69,8 +69,7 @@ public class FileManager {
     try {
       FileWriter recipWriter = new FileWriter("./app/files/recipView.csv");
       for (Recip recip : recips) {
-        System.out.println((recip.getName() + "," + recip.viewRecip() + "," + recip.viewWayMake() + "\n"));
-        recipWriter.append(recip.getName() + "," + recip.viewRecip() + "," + recip.viewWayMake() + "\n");
+        recipWriter.append(recip.getName() + "," + recip.writeRecip() + "\n");
       }
       recipWriter.close();
     } catch (IOException e) {
