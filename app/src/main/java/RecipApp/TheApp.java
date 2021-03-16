@@ -10,12 +10,14 @@ public class TheApp {
     public ArrayList<Recip> recips;
     private Recip recip;
     private UiConsoleSc ui;
+    private SearchBehaivour sh;
 
     TheApp() {
         ingredients = new ArrayList<>();
         recips = new ArrayList<>();
         ui = new UiConsoleSc();
         file = new FileManager();
+
     }
 
     public void viewIngredients() {
@@ -180,23 +182,31 @@ public class TheApp {
                 int choose2 = ui.intGetter();
                 if (choose2 == 1) {
                     // all ingr
-                    viewIngredients();
-
+                    if (ingredients.isEmpty()) {
+                        System.out.println("There Is No Ingredients To Show");
+                    } else {
+                        viewIngredients();
+                    }
                 } else if (choose2 == 2) {
                     // specieal one
-                    ui.standard();
-                    viewIngredients();
-                    int ingredientIndex = ui.intGetter() - 1;
-                    while (ingredientIndex >= ingredients.size() || ingredientIndex < 0) {
-                        ui.wronger();
-                        System.out.println("Please Try To Insert A Right Value");
-                        ingredientIndex = ui.intGetter() - 1;
+                    if (ingredients.isEmpty()) {
+                        System.out.println("There Is No Ingredients To Show");
+                    } else {
+                        ui.standard();
+                        viewIngredients();
+                        int ingredientIndex = ui.intGetter() - 1;
+                        while (ingredientIndex >= ingredients.size() || ingredientIndex < 0) {
+                            ui.wronger();
+                            System.out.println("Please Try To Insert A Right Value");
+                            ingredientIndex = ui.intGetter() - 1;
+                        }
+                        System.out.println("Name: " + ingredients.get(ingredientIndex).getName());
+                        System.out.println("Price: " + ingredients.get(ingredientIndex).getPrice());
+                        System.out.println("Unit: " + ingredients.get(ingredientIndex).getUnit());
                     }
-                    System.out.println("Name: " + ingredients.get(ingredientIndex).getName());
-                    System.out.println("Price: " + ingredients.get(ingredientIndex).getPrice());
-                    System.out.println("Unit: " + ingredients.get(ingredientIndex).getUnit());
-                } else
+                } else {
                     ui.wronger();
+                }
             } else if (ingVal == 2) {
                 // add one new
                 addIngredient();
@@ -245,6 +255,7 @@ public class TheApp {
                 ui.wronger();
             }
         }
+
     }
 
     private void recipMenu() {
@@ -262,19 +273,27 @@ public class TheApp {
                 int viewVal = ui.intGetter();
                 if (viewVal == 1) {
                     // all recips
-                    viewAllRecips();
+                    if (recips.isEmpty()) {
+                        System.out.println("There Is Now Recips Yet");
+                    } else {
+                        viewAllRecips();
+                    }
                 } else if (viewVal == 2) {
                     // specieal recip view
-                    ui.standard();
-                    viewAllRecips();
-                    int recipIndex = ui.intGetter() - 1;
-                    while (recipIndex >= recips.size() || recipIndex < 0) {
-                        ui.wronger();
-                        System.out.println("Please Try To Insert A Right Value");
-                        recipIndex = ui.intGetter() - 1;
+                    if (recips.isEmpty()) {
+                        System.out.println("There Is Now Recips Yet");
+                    } else {
+                        ui.standard();
+                        viewAllRecips();
+                        int recipIndex = ui.intGetter() - 1;
+                        while (recipIndex >= recips.size() || recipIndex < 0) {
+                            ui.wronger();
+                            System.out.println("Please Try To Insert A Right Value");
+                            recipIndex = ui.intGetter() - 1;
+                        }
+                        System.out.println("\nIngredients:\n\n" + recips.get(recipIndex).getIngredients()
+                                + "\n\n\nSteps:\n\n" + recips.get(recipIndex).viewWayMake() + "\n");
                     }
-                    System.out.println("\nIngredients:\n" + recips.get(recipIndex).getIngredients() + "\nSteps:\n"
-                            + recips.get(recipIndex).viewWayMake() + "\n");
                 } else {
                     ui.wronger();
                 }
@@ -328,15 +347,32 @@ public class TheApp {
             } else if (editVal == 2) {
                 recipIngredientEditor(recipIndex);
             } else if (editVal == 3) {
-                // edit making way
-                // System.out.println(
-                // recips.get(recipIndex).getIngredients() + "\n here" +
-                // recips.get(recipIndex).viewWayMake());
-                recips.get(recipIndex).editMakingWay();
+                recipStepsEditor(recipIndex);
             } else {
                 ui.wronger();
             }
+        }
+    }
 
+    private void recipStepsEditor(int recipIndex) {
+
+        int editStepVal = 100;
+        while (true) {
+            ui.recipEditWay();
+            editStepVal = ui.intGetter();
+            if (editStepVal == 0) {
+                break;
+            } else if (editStepVal == 1) {
+                recips.get(recipIndex).makingWay();
+            } else if (editStepVal == 2) {
+                recips.get(recipIndex).AddStepAtPlace();
+            } else if (editStepVal == 3) {
+                recips.get(recipIndex).removeStep();
+            } else if (editStepVal == 4) {
+                recips.get(recipIndex).editStep();
+            } else {
+                ui.wronger();
+            }
         }
     }
 
@@ -406,9 +442,33 @@ public class TheApp {
                 ingredientMenu();
             } else if (choose == 2) {
                 recipMenu();
+            } else if (choose == 3) {
+                search();
+            } else {
+                ui.wronger();
             }
         }
         closing();
+    }
+
+    private void search() {
+        int searchVal = 100;
+        while (true) {
+            ui.search();
+            searchVal = ui.intGetter();
+            if (searchVal == 0) {
+                break;
+            } else if (searchVal == 1) {
+                sh = new ByPriceSearch();
+                sh.search(recips);
+            } else if (searchVal == 2) {
+                sh = new ByIngredientsSearch();
+                sh.chooseIngrediet(ingredients);
+                sh.search(recips);
+            } else {
+                ui.wronger();
+            }
+        }
     }
 
     public static void main(String[] args) {

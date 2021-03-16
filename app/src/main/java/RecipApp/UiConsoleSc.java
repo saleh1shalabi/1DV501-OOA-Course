@@ -78,11 +78,21 @@ public class UiConsoleSc {
         + "1. Add Ingredient\n    2. Edit an Ingredient Amount\n    3. Edit an Ingredient Comment\n    4. Remove an Ingredient\n    0. Back to Recip Edit Menu\n");
   }
 
+  public void recipEditWay() {
+    System.out.println(standard
+        + "1. Add Step At End\n    2. Add Step At Specific place\n    3. Remove a Step\n    4. Edit a Step\n    0. Back to Recip Edit Menu\n");
+  }
+
   public void wronger() {
     System.out.println("Wrong Value!");
   }
 
   public void newValue() {
     System.out.println("Enter the new value!");
+  }
+
+  public void search() {
+    System.out.println(standard
+        + "1. Search by Price\n    2. Search bu Ingredients\n    3. Remove a Step\n    4. Edit a Step\n    0. Back to Recip Edit Menu\n");
   }
 }

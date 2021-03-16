@@ -27,10 +27,12 @@ public class Recip {
   }
 
   public void makingWay() {
-    System.out.println("How it's Done ?");
+    System.out.println("New Step To Do When Doing Recip?");
     do {
+      System.out.println(viewWayMake());
       System.out.println("(N) When Finish");
       wayToMake.add(ui.stringGetter());
+      System.out.println("New Step Have Been Added!");
     } while (!(ui.stringGetter().equalsIgnoreCase("n")));
 
   }
@@ -62,7 +64,8 @@ public class Recip {
 
     for (int c = 0; c < ingredients.size(); c++) {
       x.append(y);
-      x.append(". " + ingredients.get(c).getName() + " : " + meny.get(c) + " : " + comments.get(c) + "\n");
+      x.append(". " + ingredients.get(c).getName() + " : " + meny.get(c) + " (" + ingredients.get(c).getUnit() + ")"
+          + " : " + "(Reason) " + comments.get(c) + "\n");
       y++;
     }
     return x.toString();
@@ -100,7 +103,8 @@ public class Recip {
   }
 
   public void editMakingWay() {
-    System.out.println("Here it works");
+    System.out.println(viewWayMake());
+    wayToMake.add(3, "element");
   }
 
   public void editName() {
@@ -133,5 +137,61 @@ public class Recip {
 
   public int ingredientsSize() {
     return ingredients.size();
+  }
+
+  public void AddStepAtPlace() {
+    System.out.println("\nWhere Should It Be Added:\n");
+    System.out.println(viewWayMake());
+    int place = ui.intGetter() - 1;
+    while (place >= wayToMake.size() || place < 0) {
+      ui.wronger();
+      System.out.println("Please Try To Insert A Right Value");
+      place = ui.intGetter() - 1;
+    }
+    System.out.println("What Is The New Step:\n");
+    wayToMake.add(place, ui.stringGetter());
+
+  }
+
+  public void removeStep() {
+    System.out.println("\nWhere Should It Be Removed:\n");
+    System.out.println(viewWayMake());
+
+    int place = ui.intGetter() - 1;
+    while (place >= wayToMake.size() || place < 0) {
+      ui.wronger();
+      System.out.println("Please Try To Insert A Right Value");
+      place = ui.intGetter() - 1;
+    }
+    System.out.println("Are you sure (y)");
+    if (ui.stringGetter().equalsIgnoreCase("y")) {
+      wayToMake.remove(place);
+    } else {
+      System.out.println("Opretion Aborted");
+    }
+  }
+
+  public void editStep() {
+    System.out.println("\nWhere Should It Be Edited:\n");
+    System.out.println(viewWayMake());
+    int place = ui.intGetter() - 1;
+    while (place >= wayToMake.size() || place < 0) {
+      ui.wronger();
+      System.out.println("Please Try To Insert A Right Value");
+      place = ui.intGetter() - 1;
+    }
+    System.out.println("What Is The New Step:\n");
+    wayToMake.set(place, ui.stringGetter());
+
+  }
+
+  public boolean haveIngredient(String ingr) {
+
+    for (Ingredient ingredient : ingredients) {
+      if (ingredient.getName().equals(ingr)) {
+        return true;
+      }
+    }
+    return false;
   }
 }
