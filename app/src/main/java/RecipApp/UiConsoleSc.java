@@ -92,7 +92,6 @@ public class UiConsoleSc {
   }
 
   public void search() {
-    System.out.println(standard
-        + "1. Search by Price\n    2. Search bu Ingredients\n    3. Remove a Step\n    4. Edit a Step\n    0. Back to Recip Edit Menu\n");
+    System.out.println(standard + "1. Search by Price\n    2. Search bu Ingredients\n    0. Back to Recip Edit Menu\n");
   }
 }
