@@ -37,7 +37,6 @@ public class RecipApp {
 
         System.out.println("new mått: ");
         String mg = ui.stringGetter();
-
         System.out.println("new pris: ");
         double pr = ui.doubleGetter();
 
@@ -50,6 +49,9 @@ public class RecipApp {
         recip = new Recip(ui.stringGetter());
         addIngredientsToRecip(recip);
         recip.makingWay();
+        System.out.println("How Meny Portions Is This Recip For");
+        recip.portionSetter(ui.intGetter());
+        System.out.println("Number Of Portions " + recip.getPortions() + " Have Been Added!");
         recips.add(recip);
 
     }
@@ -113,6 +115,7 @@ public class RecipApp {
 
             String makeWay = rec[2].replace("||", ",");
             String[] makeWayList = makeWay.split(",");
+            String numberPortions = rec[3];
 
             for (String ing : ingrediensFromRecip) {
                 String thisOne = ing.replace(":", ",");
@@ -136,6 +139,7 @@ public class RecipApp {
                 }
                 recip.makeWayFromFile(steg);
             }
+            recip.portionSetter(Integer.parseInt(numberPortions));
             recips.add(recip);
         }
     }
@@ -292,7 +296,8 @@ public class RecipApp {
                             recipIndex = ui.intGetter() - 1;
                         }
                         System.out.println("\nIngredients:\n\n" + recips.get(recipIndex).getIngredients()
-                                + "\n\n\nSteps:\n\n" + recips.get(recipIndex).viewWayMake() + "\n");
+                                + "\n\n\nPortions:\n(" + recips.get(recipIndex).getPortions() + ")\n\n\nSteps:\n\n"
+                                + recips.get(recipIndex).viewWayMake() + "\n");
                     }
                 } else {
                     ui.wronger();
@@ -464,6 +469,9 @@ public class RecipApp {
             } else if (searchVal == 2) {
                 sh = new ByIngredientsSearch();
                 sh.chooseIngrediet(ingredients);
+                sh.search(recips);
+            } else if (searchVal == 3) {
+                sh = new ByPortionsSearch();
                 sh.search(recips);
             } else {
                 ui.wronger();

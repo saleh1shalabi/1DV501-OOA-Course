@@ -11,6 +11,7 @@ public class Recip {
   private UiConsoleSc ui = new UiConsoleSc();
   private ArrayList<String> wayToMake;
   private ArrayList<ArrayList<?>> recipt;
+  private int portions;
 
   public Recip(String name) {
     this.name = name;
@@ -26,6 +27,14 @@ public class Recip {
     wayToMake.add(steg);
   }
 
+  public void portionSetter(int portions) {
+    this.portions = portions;
+  }
+
+  public int getPortions() {
+    return portions;
+  }
+
   public void makingWay() {
     System.out.println("New Step To Do When Doing Recip?");
     do {
@@ -34,7 +43,6 @@ public class Recip {
       wayToMake.add(ui.stringGetter());
       System.out.println("New Step Have Been Added!");
     } while (!(ui.stringGetter().equalsIgnoreCase("n")));
-
   }
 
   public void addIngredient(Ingredient ingredient, double much, String reason) {
@@ -61,7 +69,6 @@ public class Recip {
   public String getIngredients() {
     int y = 1;
     StringBuilder x = new StringBuilder();
-
     for (int c = 0; c < ingredients.size(); c++) {
       x.append(y);
       x.append(". " + ingredients.get(c).getName() + " : " + meny.get(c) + " (" + ingredients.get(c).getUnit() + ")"
@@ -88,6 +95,8 @@ public class Recip {
     for (String step : wayToMake) {
       x.append(step + "||");
     }
+    x.append(",");
+    x.append(getPortions());
     return x.toString();
   }
 
