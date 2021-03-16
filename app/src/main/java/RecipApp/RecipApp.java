@@ -2,7 +2,7 @@ package RecipApp;
 
 import java.util.ArrayList;
 
-public class TheApp {
+public class RecipApp {
 
     private FileManager file;
 
@@ -12,7 +12,7 @@ public class TheApp {
     private UiConsoleSc ui;
     private SearchBehaivour sh;
 
-    TheApp() {
+    RecipApp() {
         ingredients = new ArrayList<>();
         recips = new ArrayList<>();
         ui = new UiConsoleSc();
@@ -472,7 +472,7 @@ public class TheApp {
     }
 
     public static void main(String[] args) {
-        TheApp a = new TheApp();
+        RecipApp a = new RecipApp();
         a.run();
     }
 }
