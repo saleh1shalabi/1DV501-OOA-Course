@@ -38,6 +38,16 @@ public class UiConsoleSc {
     return st;
   }
 
+  public int compare(int comparTo) {
+    int number = intGetter() - 1;
+    while (number >= comparTo || number < 0) {
+      wronger();
+      System.out.println("Please Try To Insert A Right Value");
+      number = intGetter() - 1;
+    }
+    return number;
+  }
+
   public void menu() {
     System.out.println(
         "\nThis is the menu of The Recip App:\n    1. Ingredients\n    2. Recip\n    3. Search\n    0. Quit\n");

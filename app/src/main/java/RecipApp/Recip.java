@@ -36,30 +36,48 @@ public class Recip {
   }
 
   public void makingWay() {
-    System.out.println("New Step To Do When Doing Recip?");
     do {
+      System.out.println("The Steps!\n");
       System.out.println(viewWayMake());
-      System.out.println("(N) When Finish");
+      System.out.println("\n\nNew Step To Do When Doing Recip?  (N) When Finish");
       wayToMake.add(ui.stringGetter());
       System.out.println("New Step Have Been Added!");
     } while (!(ui.stringGetter().equalsIgnoreCase("n")));
   }
 
-  public void addIngredient(Ingredient ingredient, double much, String reason) {
-    addComment(reason);
-    addMuchOfIng(much);
-    ingredients.add(ingredient);
-    recipt.add(ingredients);
-    recipt.add(meny);
-    recipt.add(comments);
-  }
+  public void addIngredient(ArrayList<Ingredient> ingredientz) {
+    System.out.println("ADD new ingredient!");
+    String more = "";
 
-  public void addMuchOfIng(double mush) {
-    meny.add(mush);
-  }
+    while (!(more.equalsIgnoreCase("n"))) {
 
-  public void addComment(String reason) {
-    comments.add(reason);
+      int x = 0;
+      for (Ingredient c : ingredientz) {
+        x++;
+        System.out.print(x + ". " + c.getName());
+        System.out.println();
+      }
+      System.out.println("\n\n");
+
+      int theIngredient = ui.compare(ingredientsSize());
+
+      System.out.println("How Much?");
+      double much = ui.doubleGetter();
+
+      System.out.println("What Reason");
+      String reason = ui.stringGetter();
+
+      comments.add(reason);
+      meny.add(much);
+      ingredients.add(ingredientz.get(theIngredient));
+
+      recipt.add(ingredients);
+      recipt.add(meny);
+      recipt.add(comments);
+
+      System.out.println("ADD new ingredient! (N for No)");
+      more = ui.stringGetter();
+    }
   }
 
   public String getName() {
@@ -111,11 +129,6 @@ public class Recip {
     return x.toString();
   }
 
-  public void editMakingWay() {
-    System.out.println(viewWayMake());
-    wayToMake.add(3, "element");
-  }
-
   public void editName() {
     System.out.println("What is the new name of the recip " + getName());
     String newName = ui.stringGetter();
@@ -151,12 +164,8 @@ public class Recip {
   public void AddStepAtPlace() {
     System.out.println("\nWhere Should It Be Added:\n");
     System.out.println(viewWayMake());
-    int place = ui.intGetter() - 1;
-    while (place >= wayToMake.size() || place < 0) {
-      ui.wronger();
-      System.out.println("Please Try To Insert A Right Value");
-      place = ui.intGetter() - 1;
-    }
+    int place = ui.compare(wayToMake.size());
+
     System.out.println("What Is The New Step:\n");
     wayToMake.add(place, ui.stringGetter());
 
@@ -166,12 +175,8 @@ public class Recip {
     System.out.println("\nWhere Should It Be Removed:\n");
     System.out.println(viewWayMake());
 
-    int place = ui.intGetter() - 1;
-    while (place >= wayToMake.size() || place < 0) {
-      ui.wronger();
-      System.out.println("Please Try To Insert A Right Value");
-      place = ui.intGetter() - 1;
-    }
+    int place = ui.compare(wayToMake.size());
+
     System.out.println("Are you sure (y)");
     if (ui.stringGetter().equalsIgnoreCase("y")) {
       wayToMake.remove(place);
@@ -183,12 +188,8 @@ public class Recip {
   public void editStep() {
     System.out.println("\nWhere Should It Be Edited:\n");
     System.out.println(viewWayMake());
-    int place = ui.intGetter() - 1;
-    while (place >= wayToMake.size() || place < 0) {
-      ui.wronger();
-      System.out.println("Please Try To Insert A Right Value");
-      place = ui.intGetter() - 1;
-    }
+    int place = ui.compare(wayToMake.size());
+
     System.out.println("What Is The New Step:\n");
     wayToMake.set(place, ui.stringGetter());
 
@@ -202,5 +203,15 @@ public class Recip {
       }
     }
     return false;
+  }
+
+  public void addIngredientFromFile(Ingredient ingr, double much, String reason) {
+    comments.add(reason);
+    meny.add(much);
+    ingredients.add(ingr);
+
+    recipt.add(ingredients);
+    recipt.add(meny);
+    recipt.add(comments);
   }
 }
