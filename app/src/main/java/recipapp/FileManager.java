@@ -1,4 +1,4 @@
-package RecipApp;
+package recipapp;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,7 +12,10 @@ public class FileManager {
   private String pathToIngredients = "./app/files/ingredientsFile.csv";
   private String pathToRecips = "./app/files/recipView.csv";
 
-  public ArrayList<ArrayList<String>> ingredientReader() {
+  /**
+   * Creates the tiles.
+   */
+  private ArrayList<ArrayList<String>> ingredientReader() {
 
     try {
       BufferedReader ingReader = new BufferedReader(new FileReader(pathToIngredients));
@@ -36,6 +39,9 @@ public class FileManager {
     }
   }
 
+  /**
+   * Creates the tiles.
+   */
   public ArrayList<Ingredient> ingredientAdder() {
     ArrayList<Ingredient> ingredients = new ArrayList<>();
     ArrayList<ArrayList<String>> fileIng = ingredientReader();
@@ -46,6 +52,9 @@ public class FileManager {
     return ingredients;
   }
 
+  /**
+   * Creates the tiles.
+   */
   public void ingredientWriter(ArrayList<Ingredient> ingredients) {
 
     try {
@@ -59,7 +68,10 @@ public class FileManager {
     }
   }
 
-  public ArrayList<String> recipReader() {
+  /**
+   * Creates the tiles.
+   */
+  private ArrayList<String> recipReader() {
     try {
       BufferedReader recipReader = new BufferedReader(new FileReader(pathToRecips));
       String line;
@@ -75,6 +87,9 @@ public class FileManager {
     }
   }
 
+  /**
+   * Creates the tiles.
+   */
   public void recipWriter(ArrayList<Recip> recips) {
     try {
       FileWriter recipWriter = new FileWriter("./app/files/recipView.csv");
@@ -87,6 +102,9 @@ public class FileManager {
     }
   }
 
+  /**
+   * Creates the tiles.
+   */
   public ArrayList<Recip> recipAdder() {
     ArrayList<Recip> recips = new ArrayList<>();
     for (String recp : recipReader()) {
@@ -113,7 +131,8 @@ public class FileManager {
             while (theOtherOne[2].startsWith(" ")) {
               theOtherOne[2] = theOtherOne[2].substring(1, theOtherOne[2].length());
             }
-            recip.addIngredientFromFile(ingr, Double.parseDouble(theOtherOne[1].replace(" ", "")), theOtherOne[2]);
+            recip.addIngredientFromFile(ingr, Double.parseDouble(theOtherOne[1].replace(" ", "")),
+                  theOtherOne[2]);
             break;
           }
         }

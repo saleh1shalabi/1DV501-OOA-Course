@@ -1,10 +1,13 @@
-package RecipApp;
+package recipapp;
 
 import java.util.ArrayList;
 
 public class ByPortionsSearch implements SearchBehaivour {
   private UiConsoleSc ui = new UiConsoleSc();
 
+  /**
+   * Creates the tiles.
+   */
   @Override
   public void search(ArrayList<Recip> recips) {
     System.out.println("What Is The Number Of Portions?");
@@ -17,9 +20,13 @@ public class ByPortionsSearch implements SearchBehaivour {
         y++;
       }
     }
-    System.out.println("Recips Found With The Number Of Portions (" + portions + "):\n\n" + x.toString());
+    System.out.println("Recips Found With The Number Of Portions (" 
+        + portions + "):\n\n" + x.toString());
   }
 
+  /**
+   * Creates the tiles.
+   */
   @Override
   public String chooseIngrediet(ArrayList<Ingredient> ingredients) {
     return null;

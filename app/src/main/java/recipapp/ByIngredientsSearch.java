@@ -1,4 +1,4 @@
-package RecipApp;
+package recipapp;
 
 import java.util.ArrayList;
 
@@ -7,6 +7,9 @@ public class ByIngredientsSearch implements SearchBehaivour {
 
   private String theOneIngredient;
 
+  /**
+   * Creates the tiles.
+   */
   @Override
   public void search(ArrayList<Recip> recips) {
     StringBuilder x = new StringBuilder();
@@ -17,9 +20,13 @@ public class ByIngredientsSearch implements SearchBehaivour {
         y++;
       }
     }
-    System.out.println("The Recips With Ingredient (" + theOneIngredient + ") Are:\n\n" + x.toString());
+    System.out.println("The Recips With Ingredient (" 
+        + theOneIngredient + ") Are:\n\n" + x.toString());
   }
-
+  
+  /**
+   * Creates the tiles.
+   */
   @Override
   public String chooseIngrediet(ArrayList<Ingredient> ingredients) {
     StringBuilder x = new StringBuilder();

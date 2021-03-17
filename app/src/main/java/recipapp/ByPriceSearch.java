@@ -1,10 +1,13 @@
-package RecipApp;
+package recipapp;
 
 import java.util.ArrayList;
 
 public class ByPriceSearch implements SearchBehaivour {
   private UiConsoleSc ui = new UiConsoleSc();
 
+  /**
+   * Creates the tiles.
+   */
   @Override
   public void search(ArrayList<Recip> recips) {
     System.out.println("What is the price?\n");
@@ -20,6 +23,9 @@ public class ByPriceSearch implements SearchBehaivour {
     System.out.println("Recips Found With The Price " + price + " Or Less:\n\n" + x.toString());
   }
 
+  /**
+   * Creates the tiles.
+   */
   @Override
   public String chooseIngrediet(ArrayList<Ingredient> ingredients) {
     return null;

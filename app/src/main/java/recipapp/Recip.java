@@ -1,4 +1,4 @@
-package RecipApp;
+package recipapp;
 
 import java.util.ArrayList;
 
@@ -13,6 +13,9 @@ public class Recip {
   private ArrayList<ArrayList<?>> recipt;
   private int portions;
 
+  /**
+   * Creates the tiles.
+   */
   public Recip(String name) {
     this.name = name;
     ingredients = new ArrayList<>();
@@ -35,6 +38,9 @@ public class Recip {
     return portions;
   }
 
+  /**
+   * Creates the tiles.
+   */
   public void makingWay() {
     do {
       System.out.println("The Steps!\n");
@@ -45,12 +51,13 @@ public class Recip {
     } while (!(ui.stringGetter().equalsIgnoreCase("n")));
   }
 
+  /**
+   * Creates the tiles.
+   */
   public void addIngredient(ArrayList<Ingredient> ingredientz) {
     System.out.println("ADD new ingredient!");
     String more = "";
-
     while (!(more.equalsIgnoreCase("n"))) {
-
       int x = 0;
       for (Ingredient c : ingredientz) {
         x++;
@@ -59,7 +66,7 @@ public class Recip {
       }
       System.out.println("\n\n");
 
-      int theIngredient = ui.compare(ingredientsSize());
+      final int theIngredient = ui.compare(ingredientsSize());
 
       System.out.println("How Much?");
       double much = ui.doubleGetter();
@@ -80,22 +87,32 @@ public class Recip {
     }
   }
 
+  /**
+   * Creates the tiles.
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Creates the tiles.
+   */
   public String getIngredients() {
     int y = 1;
     StringBuilder x = new StringBuilder();
     for (int c = 0; c < ingredients.size(); c++) {
       x.append(y);
-      x.append(". " + ingredients.get(c).getName() + " : " + meny.get(c) + " (" + ingredients.get(c).getUnit() + ")"
+      x.append(". " + ingredients.get(c).getName() + " : " + meny.get(c) 
+          + " (" + ingredients.get(c).getUnit() + ")"
           + " : " + "(Reason) " + comments.get(c) + "\n");
       y++;
     }
     return x.toString();
   }
 
+  /**
+   * Creates the tiles.
+   */
   public int getPrice() {
     int x = 0;
     for (Ingredient c : ingredients) {
@@ -104,6 +121,9 @@ public class Recip {
     return x;
   }
 
+  /**
+   * Creates the tiles.
+   */
   public String writeRecip() {
     StringBuilder x = new StringBuilder();
     for (int c = 0; c < ingredients.size(); c++) {
@@ -118,6 +138,9 @@ public class Recip {
     return x.toString();
   }
 
+  /**
+   * Creates the tiles.
+   */
   public String viewWayMake() {
     int y = 1;
     StringBuilder x = new StringBuilder();
@@ -129,6 +152,9 @@ public class Recip {
     return x.toString();
   }
 
+  /**
+   * Creates the tiles.
+   */  
   public void editName() {
     System.out.println("What is the new name of the recip " + getName());
     String newName = ui.stringGetter();
@@ -136,16 +162,25 @@ public class Recip {
 
   }
 
+  /**
+   * Creates the tiles.
+   */ 
   public void editIngredientAmount(int index) {
     meny.set(index, ui.doubleGetter());
 
   }
 
+  /**
+   * Creates the tiles.
+   */ 
   public void editIngredientComment(int index) {
     comments.set(index, ui.stringGetter());
 
   }
 
+  /**
+   * Creates the tiles.
+   */ 
   public void removeIngredientFromRecip(int index) {
     System.out.println("Are you sure (y)");
     if (ui.stringGetter().equalsIgnoreCase("y")) {
@@ -157,11 +192,17 @@ public class Recip {
     }
   }
 
+  /**
+   * Creates the tiles.
+   */ 
   public int ingredientsSize() {
     return ingredients.size();
   }
 
-  public void AddStepAtPlace() {
+  /**
+   * Creates the tiles.
+   */ 
+  public void addStepAtPlace() {
     System.out.println("\nWhere Should It Be Added:\n");
     System.out.println(viewWayMake());
     int place = ui.compare(wayToMake.size());
@@ -171,6 +212,9 @@ public class Recip {
 
   }
 
+  /**
+   * Creates the tiles.
+   */ 
   public void removeStep() {
     System.out.println("\nWhere Should It Be Removed:\n");
     System.out.println(viewWayMake());
@@ -185,6 +229,9 @@ public class Recip {
     }
   }
 
+  /**
+   * Creates the tiles.
+   */ 
   public void editStep() {
     System.out.println("\nWhere Should It Be Edited:\n");
     System.out.println(viewWayMake());
@@ -195,6 +242,9 @@ public class Recip {
 
   }
 
+  /**
+   * Creates the tiles.
+   */
   public boolean haveIngredient(String ingr) {
 
     for (Ingredient ingredient : ingredients) {
@@ -205,6 +255,9 @@ public class Recip {
     return false;
   }
 
+  /**
+   * Creates the tiles.
+   */
   public void addIngredientFromFile(Ingredient ingr, double much, String reason) {
     comments.add(reason);
     meny.add(much);
