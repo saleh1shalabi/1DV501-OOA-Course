@@ -8,7 +8,7 @@ public class ByIngredientsSearch implements SearchBehaivour {
   private String theOneIngredient;
 
   /**
-   * Creates the tiles.
+   * searcher for an ingrdeint in recips.
    */
   @Override
   public void search(ArrayList<Recip> recips) {
@@ -25,7 +25,7 @@ public class ByIngredientsSearch implements SearchBehaivour {
   }
   
   /**
-   * Creates the tiles.
+   * For the user to choose one ingredient.
    */
   @Override
   public String chooseIngrediet(ArrayList<Ingredient> ingredients) {

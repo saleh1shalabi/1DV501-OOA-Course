@@ -14,7 +14,7 @@ public class Recip {
   private int portions;
 
   /**
-   * Creates the tiles.
+   * Recip Object.
    */
   public Recip(String name) {
     this.name = name;
@@ -39,7 +39,8 @@ public class Recip {
   }
 
   /**
-   * Creates the tiles.
+   * the method called when the recip is done
+   * and making way is asked.
    */
   public void makingWay() {
     do {
@@ -52,7 +53,7 @@ public class Recip {
   }
 
   /**
-   * Creates the tiles.
+   * adds ingredient to the recip from the user.
    */
   public void addIngredient(ArrayList<Ingredient> ingredientz) {
     System.out.println("ADD new ingredient!");
@@ -87,15 +88,13 @@ public class Recip {
     }
   }
 
-  /**
-   * Creates the tiles.
-   */
   public String getName() {
     return name;
   }
 
   /**
-   * Creates the tiles.
+   * gets the ingredients with the the amount
+   * and reason as string.
    */
   public String getIngredients() {
     int y = 1;
@@ -111,7 +110,7 @@ public class Recip {
   }
 
   /**
-   * Creates the tiles.
+   * get the the price of the recip.
    */
   public int getPrice() {
     int x = 0;
@@ -122,7 +121,8 @@ public class Recip {
   }
 
   /**
-   * Creates the tiles.
+   * the method called only from FileManager class
+   * to write the recip to the file.
    */
   public String writeRecip() {
     StringBuilder x = new StringBuilder();
@@ -139,7 +139,7 @@ public class Recip {
   }
 
   /**
-   * Creates the tiles.
+   * get the steps to make as string.
    */
   public String viewWayMake() {
     int y = 1;
@@ -151,36 +151,30 @@ public class Recip {
     }
     return x.toString();
   }
-
+  
   /**
-   * Creates the tiles.
-   */  
+   * edits the recip name.
+   */
   public void editName() {
     System.out.println("What is the new name of the recip " + getName());
     String newName = ui.stringGetter();
     name = newName;
 
   }
-
-  /**
-   * Creates the tiles.
-   */ 
+  
   public void editIngredientAmount(int index) {
     meny.set(index, ui.doubleGetter());
 
   }
 
-  /**
-   * Creates the tiles.
-   */ 
   public void editIngredientComment(int index) {
     comments.set(index, ui.stringGetter());
 
   }
 
   /**
-   * Creates the tiles.
-   */ 
+   * remove an ingredietn from the recip.
+   */
   public void removeIngredientFromRecip(int index) {
     System.out.println("Are you sure (y)");
     if (ui.stringGetter().equalsIgnoreCase("y")) {
@@ -192,15 +186,12 @@ public class Recip {
     }
   }
 
-  /**
-   * Creates the tiles.
-   */ 
   public int ingredientsSize() {
     return ingredients.size();
   }
 
   /**
-   * Creates the tiles.
+   * Adds step to the specifid place.
    */ 
   public void addStepAtPlace() {
     System.out.println("\nWhere Should It Be Added:\n");
@@ -213,8 +204,8 @@ public class Recip {
   }
 
   /**
-   * Creates the tiles.
-   */ 
+   * removes a step from the recip.
+   */
   public void removeStep() {
     System.out.println("\nWhere Should It Be Removed:\n");
     System.out.println(viewWayMake());
@@ -230,8 +221,8 @@ public class Recip {
   }
 
   /**
-   * Creates the tiles.
-   */ 
+   * changes a step in the making way from the recip.
+   */
   public void editStep() {
     System.out.println("\nWhere Should It Be Edited:\n");
     System.out.println(viewWayMake());
@@ -243,7 +234,7 @@ public class Recip {
   }
 
   /**
-   * Creates the tiles.
+   * checks if an ingredient is in this recip.
    */
   public boolean haveIngredient(String ingr) {
 
@@ -256,7 +247,7 @@ public class Recip {
   }
 
   /**
-   * Creates the tiles.
+   * called from class FileManagar to add ingredietns from file.
    */
   public void addIngredientFromFile(Ingredient ingr, double much, String reason) {
     comments.add(reason);

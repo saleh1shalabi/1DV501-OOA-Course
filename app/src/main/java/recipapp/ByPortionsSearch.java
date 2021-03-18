@@ -6,7 +6,7 @@ public class ByPortionsSearch implements SearchBehaivour {
   private UiConsoleSc ui = new UiConsoleSc();
 
   /**
-   * Creates the tiles.
+   * searcher for recips of X portion.
    */
   @Override
   public void search(ArrayList<Recip> recips) {
@@ -25,11 +25,10 @@ public class ByPortionsSearch implements SearchBehaivour {
   }
 
   /**
-   * Creates the tiles.
+    * none functional in this implementaion.
    */
   @Override
   public String chooseIngrediet(ArrayList<Ingredient> ingredients) {
     return null;
   }
-
 }

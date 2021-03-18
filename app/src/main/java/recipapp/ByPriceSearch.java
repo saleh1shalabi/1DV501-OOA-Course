@@ -6,7 +6,7 @@ public class ByPriceSearch implements SearchBehaivour {
   private UiConsoleSc ui = new UiConsoleSc();
 
   /**
-   * Creates the tiles.
+   * search with a price.
    */
   @Override
   public void search(ArrayList<Recip> recips) {
@@ -24,7 +24,7 @@ public class ByPriceSearch implements SearchBehaivour {
   }
 
   /**
-   * Creates the tiles.
+   * none functional in this implementaion.
    */
   @Override
   public String chooseIngrediet(ArrayList<Ingredient> ingredients) {

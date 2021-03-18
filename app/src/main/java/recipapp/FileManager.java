@@ -9,11 +9,12 @@ import java.util.ArrayList;
 
 public class FileManager {
 
-  private String pathToIngredients = "./app/files/ingredientsFile.csv";
-  private String pathToRecips = "./app/files/recipView.csv";
+  private String pathToIngredients = "./app/files/ingredients.csv";
+  private String pathToRecips = "./app/files/recips.csv";
 
   /**
-   * Creates the tiles.
+   * the method that reads the ingrdeients file
+   * return the ingredients as arrylist of strings.
    */
   private ArrayList<ArrayList<String>> ingredientReader() {
 
@@ -40,7 +41,7 @@ public class FileManager {
   }
 
   /**
-   * Creates the tiles.
+   * the method that adds the ingrdietns into the app.
    */
   public ArrayList<Ingredient> ingredientAdder() {
     ArrayList<Ingredient> ingredients = new ArrayList<>();
@@ -53,14 +54,15 @@ public class FileManager {
   }
 
   /**
-   * Creates the tiles.
+   * the method that writes the ingrdeients into the file.
    */
   public void ingredientWriter(ArrayList<Ingredient> ingredients) {
 
     try {
       FileWriter ingWriter = new FileWriter("./app/files/ingredientsFile.csv");
       for (Ingredient ingredient : ingredients) {
-        ingWriter.append(ingredient.getName() + "," + ingredient.getUnit() + "," + ingredient.getPrice() + "\n");
+        ingWriter.append(ingredient.getName() + "," + ingredient.getUnit() 
+            + "," + ingredient.getPrice() + "\n");
       }
       ingWriter.close();
     } catch (IOException e) {
@@ -69,7 +71,8 @@ public class FileManager {
   }
 
   /**
-   * Creates the tiles.
+   * the method that reads the recip file
+   * return the ingredients as arrylist of strings.
    */
   private ArrayList<String> recipReader() {
     try {
@@ -88,7 +91,7 @@ public class FileManager {
   }
 
   /**
-   * Creates the tiles.
+   * the method that writes the recips into the file.
    */
   public void recipWriter(ArrayList<Recip> recips) {
     try {
@@ -103,7 +106,7 @@ public class FileManager {
   }
 
   /**
-   * Creates the tiles.
+   * the method that creates the recips.
    */
   public ArrayList<Recip> recipAdder() {
     ArrayList<Recip> recips = new ArrayList<>();

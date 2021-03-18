@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public interface SearchBehaivour {
 
   /**
-   * Creates the tiles.
+   * searcher.
    */
   public void search(ArrayList<Recip> recips);
 
   /**
-   * Creates the tiles.
+   * user ingredient choice.
    */
   public String chooseIngrediet(ArrayList<Ingredient> ingredients);
 }
