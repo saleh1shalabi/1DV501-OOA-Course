@@ -43,13 +43,22 @@ public class Recip {
    * and making way is asked.
    */
   public void makingWay() {
-    do {
-      System.out.println("The Steps!\n");
+    String step = "";
+    while (!(step.equalsIgnoreCase("n"))) {
+      System.out.println("\nThe Steps!\n");
       System.out.println(viewWayMake());
       System.out.println("\n\nNew Step To Do When Doing Recip?  (N) When Finish");
-      wayToMake.add(ui.stringGetter());
-      System.out.println("New Step Have Been Added!");
-    } while (!(ui.stringGetter().equalsIgnoreCase("n")));
+      step = ui.stringGetter();
+      switch (step) {
+        case "N":
+          break;
+        case "n":
+          break;
+        default:
+          wayToMake.add(step);
+          System.out.println("New Step Have Been Added!");
+      } 
+    }
   }
 
   /**
@@ -67,10 +76,14 @@ public class Recip {
       }
       System.out.println("\n\n");
 
-      final int theIngredient = ui.compare(ingredientsSize());
+      final int theIngredient = ui.compare(ingredientz.size());
 
       System.out.println("How Much?");
       double much = ui.doubleGetter();
+      while (much <= 0) {
+        ui.wronger();
+        much = ui.doubleGetter();
+      }
 
       System.out.println("What Reason");
       String reason = ui.stringGetter();
@@ -114,8 +127,8 @@ public class Recip {
    */
   public int getPrice() {
     int x = 0;
-    for (Ingredient c : ingredients) {
-      x += c.getPrice();
+    for (int c = 0; c < ingredients.size(); c++) {
+      x += ingredients.get(c).getPrice() * meny.get(c);
     }
     return x;
   }
@@ -194,29 +207,36 @@ public class Recip {
    * Adds step to the specifid place.
    */ 
   public void addStepAtPlace() {
-    System.out.println("\nWhere Should It Be Added:\n");
-    System.out.println(viewWayMake());
-    int place = ui.compare(wayToMake.size());
+    if (!(wayToMake.isEmpty())) {
+      System.out.println("\nWhere Should It Be Added:\n");
+      System.out.println(viewWayMake());
+      int place = ui.compare(wayToMake.size());
 
-    System.out.println("What Is The New Step:\n");
-    wayToMake.add(place, ui.stringGetter());
-
+      System.out.println("What Is The New Step:\n");
+      wayToMake.add(place, ui.stringGetter());
+    } else {
+      makingWay();
+    }
   }
 
   /**
    * removes a step from the recip.
    */
   public void removeStep() {
-    System.out.println("\nWhere Should It Be Removed:\n");
-    System.out.println(viewWayMake());
+    if (!(wayToMake.isEmpty())) {
+      System.out.println("\nWhere Should It Be Removed:\n");
+      System.out.println(viewWayMake());
 
-    int place = ui.compare(wayToMake.size());
+      int place = ui.compare(wayToMake.size());
 
-    System.out.println("Are you sure (y)");
-    if (ui.stringGetter().equalsIgnoreCase("y")) {
-      wayToMake.remove(place);
+      System.out.println("Are you sure (y)");
+      if (ui.stringGetter().equalsIgnoreCase("y")) {
+        wayToMake.remove(place);
+      } else {
+        System.out.println("Opretion Aborted");
+      }
     } else {
-      System.out.println("Opretion Aborted");
+      System.out.println("There Is no Steps to Remove!");
     }
   }
 
@@ -224,13 +244,17 @@ public class Recip {
    * changes a step in the making way from the recip.
    */
   public void editStep() {
-    System.out.println("\nWhere Should It Be Edited:\n");
-    System.out.println(viewWayMake());
-    int place = ui.compare(wayToMake.size());
+    if (!(wayToMake.isEmpty())) {
+      System.out.println("\nWhere Should It Be Edited:\n");
+      System.out.println(viewWayMake());
+      int place = ui.compare(wayToMake.size());
 
-    System.out.println("What Is The New Step:\n");
-    wayToMake.set(place, ui.stringGetter());
-
+      System.out.println("What Is The New Step:\n");
+      wayToMake.set(place, ui.stringGetter());
+    }
+    else {
+      System.out.println("There Is No Steps To Change!");
+    }
   }
 
   /**
@@ -257,5 +281,32 @@ public class Recip {
     recipt.add(ingredients);
     recipt.add(meny);
     recipt.add(comments);
+  }
+
+  /**
+   * called from class FileManagar to add ingredietns from file.
+   */
+  public void speciealPortionGetter(int port) {
+    ArrayList<Double> ny = new ArrayList<>();
+    for (double nr : meny) {
+      ny.add(nr / getPortions());
+    }
+
+    int y = 1;
+    StringBuilder x = new StringBuilder();
+
+    for (int c = 0; c < ingredients.size(); c++) {
+      x.append(y);
+      x.append(". " + ingredients.get(c).getName() + " : " + (ny.get(c) * port)
+          + " (" + ingredients.get(c).getUnit() + ")"
+          + " : " + "(Reason) " + comments.get(c) + "\n");
+      y++;
+    }
+    System.out.println(x.toString());
+    int prise = 0;
+    for (int c = 0; c < ingredients.size(); c++) {
+      prise += ingredients.get(c).getPrice() * (ny.get(c) * port);
+    }
+    System.out.println("Price (" + prise + ")\n\n");
   }
 }

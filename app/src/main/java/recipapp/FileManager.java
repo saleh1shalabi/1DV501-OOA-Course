@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class FileManager {
 
-  private String pathToIngredients = "./app/files/ingredients.csv";
-  private String pathToRecips = "./app/files/recips.csv";
+  final private String pathToIngredients = "./app/files/ingredients.csv";
+  final private String pathToRecips = "./app/files/recips.csv";
 
   /**
    * the method that reads the ingrdeients file
@@ -21,7 +21,7 @@ public class FileManager {
     try {
       BufferedReader ingReader = new BufferedReader(new FileReader(pathToIngredients));
       String line;
-      ArrayList<ArrayList<String>> saker = new ArrayList<>();
+      ArrayList<ArrayList<String>> ingridients = new ArrayList<>();
 
       while ((line = ingReader.readLine()) != null) {
         String[] s = line.split(",");
@@ -29,10 +29,10 @@ public class FileManager {
         for (String c : s) {
           x.add(c);
         }
-        saker.add(x);
+        ingridients.add(x);
       }
       ingReader.close();
-      return saker;
+      return ingridients;
 
     } catch (IOException e) {
       e.printStackTrace();
@@ -59,7 +59,7 @@ public class FileManager {
   public void ingredientWriter(ArrayList<Ingredient> ingredients) {
 
     try {
-      FileWriter ingWriter = new FileWriter("./app/files/ingredientsFile.csv");
+      FileWriter ingWriter = new FileWriter(pathToIngredients);
       for (Ingredient ingredient : ingredients) {
         ingWriter.append(ingredient.getName() + "," + ingredient.getUnit() 
             + "," + ingredient.getPrice() + "\n");
@@ -95,7 +95,7 @@ public class FileManager {
    */
   public void recipWriter(ArrayList<Recip> recips) {
     try {
-      FileWriter recipWriter = new FileWriter("./app/files/recipView.csv");
+      FileWriter recipWriter = new FileWriter(pathToRecips);
       for (Recip recip : recips) {
         recipWriter.append(recip.getName() + "," + recip.writeRecip() + "\n");
       }
@@ -144,7 +144,9 @@ public class FileManager {
         while (steg.startsWith(" ")) {
           steg = steg.substring(1, steg.length());
         }
-        recip.makeWayFromFile(steg);
+        if (!(steg.isEmpty())) {
+          recip.makeWayFromFile(steg);
+        }
       }
       recip.portionSetter(Integer.parseInt(numberPortions));
       recips.add(recip);

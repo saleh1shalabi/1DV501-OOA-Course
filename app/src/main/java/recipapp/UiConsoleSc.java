@@ -64,6 +64,15 @@ public class UiConsoleSc {
     return number;
   }
 
+  /**
+   * presser.
+   */
+  public void pressToReturn() {
+    System.out.println("Press Enter to Continue!");
+    input.nextLine();
+    
+  }
+
   public void menu() {
     System.out.println("\nThis is the menu of The Recip App:\n    1. Ingredients\n    2. Recip\n" 
         + "    3. Search\n    0. Quit\n");
@@ -79,7 +88,7 @@ public class UiConsoleSc {
   }
 
   public void ingredeientEdit() {
-    System.out.println(standard + "1. Name\n    2. price\n    3. Unit\n"
+    System.out.println(standard + "1. Name\n    2. Price\n    3. Unit\n"
         + "    0. Back to Ingredients Menu");
   }
 
@@ -125,6 +134,6 @@ public class UiConsoleSc {
 
   public void search() {
     System.out.println(standard + "1. Search by Price\n    2. Search by Ingredients\n"
-        + "    3. Search by Portion number\n    0. Back to Recip Edit Menu\n");
+        + "    3. Search by Portion number\n    0. Back to Main Menu\n");
   }
 }

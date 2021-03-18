@@ -33,6 +33,10 @@ public class RecipApp {
 
     System.out.println("What Is the Price for (" + ne + "): ");
     double pr = ui.doubleGetter();
+    while (pr <= 0) {
+      ui.wronger();
+      pr = ui.doubleGetter();
+    }
 
     Ingredient ing = (new Ingredient(ne, mg, pr));
     ingredients.add(ing);
@@ -45,7 +49,7 @@ public class RecipApp {
    */
   private void viewIngredients() {
     int x = 0;
-    System.out.println("\n\n\n");
+    System.out.println("\n\nAll Available Ingredients are:\n");
     for (Ingredient c : ingredients) {
       x++;
       System.out.print(x + ". " + c.getName() + "\n");
@@ -74,7 +78,7 @@ public class RecipApp {
    */
   private void viewAllRecips() {
     int x = 1;
-    System.out.println("\n\n\n");
+    System.out.println("\n\nAll Available Recips are:\n");
     for (Recip c : recips) {
       System.out.print(x + ". " + c.getName() + "\n");
       x++;
@@ -114,28 +118,31 @@ public class RecipApp {
           // view ingredients
           ui.ingredientView();
           int choose = ui.intGetter();
-          
           switch (choose) {
-            
             case 1:
               // all ingr
               if (ingredients.isEmpty()) {
                 System.out.println("There Is No Ingredients To Show");
+                ui.pressToReturn();
               } else {
                 viewIngredients();
+                ui.pressToReturn();
               }
               break;
             case 2:
               // specieal one
               if (ingredients.isEmpty()) {
                 System.out.println("There Is No Ingredients To Show");
+                ui.pressToReturn();
               } else {
                 ui.standard();
                 viewIngredients();
                 int ingredientIndex = ui.compare(ingredients.size());
+                System.out.println("\n\nThe Chosen Ingredient:\n");
                 System.out.println("Name: " + ingredients.get(ingredientIndex).getName());
                 System.out.println("Price: " + ingredients.get(ingredientIndex).getPrice());
                 System.out.println("Unit: " + ingredients.get(ingredientIndex).getUnit() + "\n\n");
+                ui.pressToReturn();
               }
               break;
             default:
@@ -145,6 +152,7 @@ public class RecipApp {
         case 2:
           // add one new
           addIngredient();
+          ui.pressToReturn();
           break;
         case 3:
           // edit ingredient
@@ -153,6 +161,7 @@ public class RecipApp {
         case 4:
           // remove ingredient
           removeIngredient();
+          ui.pressToReturn();
           break;
         default:
           ui.wronger();
@@ -176,22 +185,33 @@ public class RecipApp {
           break;
         case 1:
           // name
-          System.out.println("New name Of " + ingredients.get(ingIndex).getName() + "\n");
+          System.out.print("\nNew Name Of The (" + ingredients.get(ingIndex).getName() + ") : ");
           ingredients.get(ingIndex).editName(ui.stringGetter());
+          System.out.println("\nThe Name have been Edited!\n");
+          ui.pressToReturn();
           break;
         case 2:
           // price
-          System.out.println("Price Of " + ingredients.get(ingIndex).getName() 
-              + "are " + ingredients.get(ingIndex).getPrice() + "\n");
-          System.out.println("New Price:\n");
-          ingredients.get(ingIndex).editPrice(ui.doubleGetter());
+          System.out.println("\nPrice Of " + ingredients.get(ingIndex).getName() 
+              + " are (" + ingredients.get(ingIndex).getPrice() + ")\n");
+          System.out.print("New Price: ");
+          double price = ui.doubleGetter();
+          while (price <= 0) {
+            ui.wronger();
+            price = ui.doubleGetter();
+          }
+          ingredients.get(ingIndex).editPrice(price);
+          System.out.println("\nThe Price have been Edited!\n");
+          ui.pressToReturn();
           break;
         case 3:
           // unit
-          System.out.println("Unit Of " + ingredients.get(ingIndex).getName() 
-              + "are " + ingredients.get(ingIndex).getUnit() + "\n");
-          System.out.println("New Unit:\n");
+          System.out.println("\nUnit Of " + ingredients.get(ingIndex).getName() 
+              + " are (" + ingredients.get(ingIndex).getUnit() + ")\n");
+          System.out.print("New Unit: ");
           ingredients.get(ingIndex).editUnit(ui.stringGetter());
+          System.out.println("\nThe Unit have been Edited!\n");
+          ui.pressToReturn();
           break;
         default:
           ui.wronger();
@@ -218,14 +238,17 @@ public class RecipApp {
             case 1:
               if (recips.isEmpty()) {
                 System.out.println("There Is Now Recips Yet!");
+                ui.pressToReturn();
               } else {
                 viewAllRecips();
+                ui.pressToReturn();
               }
               break;
             case 2:
               // specieal recip view
               if (recips.isEmpty()) {
                 System.out.println("There Is Now Recips Yet!");
+                ui.pressToReturn();
               } else {
                 ui.standard();
                 viewAllRecips();
@@ -233,7 +256,23 @@ public class RecipApp {
                 System.out.println("\nIngredients:\n" + recips.get(recipIndex).getIngredients() 
                     + "\n\nPortions:\n(" + recips.get(recipIndex).getPortions() 
                     + ")\n\nSteps:\n" + recips.get(recipIndex).viewWayMake()
-                    + "\n\n");
+                    + "\n\nPrice: (" + recips.get(recipIndex).getPrice() + ")\n\n");
+                ui.pressToReturn();
+              }
+              break;
+            case 3:
+              // Special Portions
+              if (recips.isEmpty()) {
+                System.out.println("There Is Now Recips Yet!");
+                ui.pressToReturn();
+              } else {
+                ui.standard();
+                viewAllRecips();
+                int recipIndex = ui.compare(recips.size());
+                System.out.println("How many Portions Are U Asking For ");
+                int portions = ui.compare(101) + 1;
+                recips.get(recipIndex).speciealPortionGetter(portions);
+                ui.pressToReturn();
               }
               break;
             default:
@@ -242,6 +281,7 @@ public class RecipApp {
           break;
         case 2:
           addRecip();
+          ui.pressToReturn();
           break;
         case 3:
           recipEditer();
@@ -259,6 +299,7 @@ public class RecipApp {
           } else {
             System.out.println("Operation Aborted!\n\n");
           }
+          ui.pressToReturn();
           break;
         default:
           ui.wronger();
@@ -283,6 +324,7 @@ public class RecipApp {
         case 1:
           // edit recip name
           recips.get(recipIndex).editName();
+          ui.pressToReturn();
           break;
         case 2:
           // recip Ingredients editor
@@ -312,15 +354,19 @@ public class RecipApp {
           break;
         case 1:
           recips.get(recipIndex).makingWay();
+          ui.pressToReturn();
           break;
         case 2:
           recips.get(recipIndex).addStepAtPlace();
+          ui.pressToReturn();
           break;
         case 3:
           recips.get(recipIndex).removeStep();
+          ui.pressToReturn();
           break;
         case 4:
           recips.get(recipIndex).editStep();
+          ui.pressToReturn();
           break;
         default:
           ui.wronger();
@@ -344,6 +390,7 @@ public class RecipApp {
         case 1:
           // add ingredient to recip
           recips.get(recipIndex).addIngredient(ingredients);
+          ui.pressToReturn();
           break;
         case 2:
           // ingredient amount
@@ -352,6 +399,7 @@ public class RecipApp {
           ingIndex = ui.compare(recips.get(recipIndex).ingredientsSize());
           ui.newValue();
           recips.get(recipIndex).editIngredientAmount(ingIndex);
+          ui.pressToReturn();
           break;
         case 3:
           // ingredient comment
@@ -360,6 +408,7 @@ public class RecipApp {
           ingIndex = ui.compare(recips.get(recipIndex).ingredientsSize());
           ui.newValue();
           recips.get(recipIndex).editIngredientComment(ingIndex);
+          ui.pressToReturn();
           break; 
         case 4:
           // remove ingredient
@@ -367,6 +416,7 @@ public class RecipApp {
           System.out.println(recips.get(recipIndex).getIngredients());
           ingIndex = ui.compare(recips.get(recipIndex).ingredientsSize());
           recips.get(recipIndex).removeIngredientFromRecip(ingIndex);
+          ui.pressToReturn();
           break;
         default:
           ui.wronger();
