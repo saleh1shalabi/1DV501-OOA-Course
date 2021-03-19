@@ -14,10 +14,10 @@ public class RecipApp {
 
 
   RecipApp() {
-    ingredients = new ArrayList<>();
-    recips = new ArrayList<>();
     ui = new UiConsoleSc();
     file = new FileManager();
+    ingredients = file.ingredientAdder();
+    recips = file.recipAdder();
   }
 
   /**
@@ -334,6 +334,10 @@ public class RecipApp {
           // recip Steps editor
           recipStepsEditor(recipIndex);
           break;
+        case 4:
+          System.out.println("What Is The new Number Of Portions?");
+          recips.get(recipIndex).portionSetter(ui.intGetter());
+          break;
         default:
           ui.wronger();
       }
@@ -458,8 +462,6 @@ public class RecipApp {
    * method that runs the program.
    */
   private void run() {
-    ingredients = file.ingredientAdder();
-    recips = file.recipAdder();
     int choose = 100;
     while (choose != 0) {
       ui.menu();

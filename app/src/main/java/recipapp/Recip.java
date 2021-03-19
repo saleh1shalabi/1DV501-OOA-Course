@@ -251,8 +251,7 @@ public class Recip {
 
       System.out.println("What Is The New Step:\n");
       wayToMake.set(place, ui.stringGetter());
-    }
-    else {
+    } else {
       System.out.println("There Is No Steps To Change!");
     }
   }
@@ -284,14 +283,13 @@ public class Recip {
   }
 
   /**
-   * called from class FileManagar to add ingredietns from file.
+   * called when a recip with speciell amount of portions is asked.
    */
   public void speciealPortionGetter(int port) {
     ArrayList<Double> ny = new ArrayList<>();
     for (double nr : meny) {
       ny.add(nr / getPortions());
     }
-
     int y = 1;
     StringBuilder x = new StringBuilder();
 
@@ -309,4 +307,5 @@ public class Recip {
     }
     System.out.println("Price (" + prise + ")\n\n");
   }
+
 }

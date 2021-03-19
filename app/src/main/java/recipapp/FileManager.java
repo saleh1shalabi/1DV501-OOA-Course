@@ -9,8 +9,10 @@ import java.util.ArrayList;
 
 public class FileManager {
 
-  final private String pathToIngredients = "./app/files/ingredients.csv";
-  final private String pathToRecips = "./app/files/recips.csv";
+  private final String pathToIngredients = "./app/files/ingredients.csv";
+  private final String pathToRecips = "./app/files/recips.csv";
+  private ArrayList<Ingredient> ingredients = new ArrayList<>();
+  private ArrayList<String> recips = new ArrayList<>();
 
   /**
    * the method that reads the ingrdeients file
@@ -21,19 +23,17 @@ public class FileManager {
     try {
       BufferedReader ingReader = new BufferedReader(new FileReader(pathToIngredients));
       String line;
-      ArrayList<ArrayList<String>> ingridients = new ArrayList<>();
-
+      ArrayList<ArrayList<String>> ingridientz = new ArrayList<>();
       while ((line = ingReader.readLine()) != null) {
-        String[] s = line.split(",");
-        ArrayList<String> x = new ArrayList<>();
-        for (String c : s) {
-          x.add(c);
+        ArrayList<String> oneIngredient = new ArrayList<>();
+        for (String c : line.split(",")) {
+          oneIngredient.add(c);
         }
-        ingridients.add(x);
+        ingridientz.add(new ArrayList<>(oneIngredient));
+        oneIngredient.clear();
       }
       ingReader.close();
-      return ingridients;
-
+      return ingridientz;
     } catch (IOException e) {
       e.printStackTrace();
       return null;
@@ -44,9 +44,9 @@ public class FileManager {
    * the method that adds the ingrdietns into the app.
    */
   public ArrayList<Ingredient> ingredientAdder() {
-    ArrayList<Ingredient> ingredients = new ArrayList<>();
-    ArrayList<ArrayList<String>> fileIng = ingredientReader();
-    for (ArrayList<String> ings : fileIng) {
+
+    ArrayList<ArrayList<String>> ingr = new ArrayList<>(ingredientReader());
+    for (ArrayList<String> ings : ingr) {
       Ingredient ing = (new Ingredient(ings.get(0), ings.get(1), Double.parseDouble(ings.get(2))));
       ingredients.add(ing);
     }
@@ -78,7 +78,6 @@ public class FileManager {
     try {
       BufferedReader recipReader = new BufferedReader(new FileReader(pathToRecips));
       String line;
-      ArrayList<String> recips = new ArrayList<>();
       while ((line = recipReader.readLine()) != null) {
         recips.add(line);
       }
@@ -129,7 +128,7 @@ public class FileManager {
         String[] theOtherOne = thisOne.split(",");
         String theIngredient = theOtherOne[0].replace(" ", "");
 
-        for (Ingredient ingr : ingredientAdder()) {
+        for (Ingredient ingr : ingredients) {
           if (theIngredient.equals(ingr.getName())) {
             while (theOtherOne[2].startsWith(" ")) {
               theOtherOne[2] = theOtherOne[2].substring(1, theOtherOne[2].length());

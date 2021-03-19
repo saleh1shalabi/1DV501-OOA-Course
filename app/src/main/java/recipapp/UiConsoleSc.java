@@ -15,6 +15,8 @@ public class UiConsoleSc {
     while (true) {
       try {
         int nr = Integer.parseInt(input.nextLine());
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         return nr;
       } catch (Exception e) {
         wronger();
@@ -29,6 +31,8 @@ public class UiConsoleSc {
     while (true) {
       try {
         double nr = Double.parseDouble(input.nextLine());
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
         return nr;
       } catch (Exception e) {
         wronger();
@@ -44,6 +48,8 @@ public class UiConsoleSc {
     do {
       st = input.nextLine();
     } while (st.equals(""));
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
     return st;
   }
 
@@ -60,6 +66,8 @@ public class UiConsoleSc {
       wronger();
       System.out.println("Please Try To Insert A Right Value");
       number = intGetter() - 1;
+      System.out.print("\033[H\033[2J");
+      System.out.flush();
     }
     return number;
   }
@@ -70,7 +78,8 @@ public class UiConsoleSc {
   public void pressToReturn() {
     System.out.println("Press Enter to Continue!");
     input.nextLine();
-    
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
   }
 
   public void menu() {
@@ -102,12 +111,13 @@ public class UiConsoleSc {
   }
 
   public void recipView() {
-    System.out.println(standard + "1. All Availble Recips\n    2. Details about one\n");
+    System.out.println(standard + "1. All Availble Recips\n    2. Details about one\n" 
+        + "    3. A Recip With Specieal given Portion Number\n");
   }
 
   public void recipEdit() {
     System.out.println(standard + "1. Name\n    2. Ingredients\n"
-        + "    3. The way of making\n    0. Back to Recip Menu\n");
+        + "    3. The way of making\n    4. Number Of Portions\n    0. Back to Recip Menu\n");
   }
 
   /**
