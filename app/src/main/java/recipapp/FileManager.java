@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class FileManager {
 
-  private final String pathToIngredients = "./recipapp/files/ingredients.csv";
-  private final String pathToRecips = "./recipapp/files/recips.csv";
+  private final String pathToIngredients = "./app/files/ingredients.csv";
+  private final String pathToRecips = "./app/files/recips.csv";
   private ArrayList<Ingredient> ingredients = new ArrayList<>();
   private ArrayList<String> recips = new ArrayList<>();
 
