@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * searcher interface class.
  */
 public interface SearchBehaivour {
-
+  UiConsoleSc ui = new UiConsoleSc();
   /**
    * searcher.
    */

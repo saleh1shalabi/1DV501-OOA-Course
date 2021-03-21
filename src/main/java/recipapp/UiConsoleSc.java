@@ -174,8 +174,8 @@ public class UiConsoleSc {
    * method to set label to a recip.
    */
   public String chooseRecipLabel() {
-    String[] labels = {"Dessert", "Dinner", "Breakfast" 
-        + "Lunch", "BBQ", "Vegetarian", "Vegan", "Dairy Free"};
+    String[] labels = {"Dessert", "Dinner", "Breakfast",
+        "Lunch", "BBQ", "Vegetarian", "Vegan", "Dairy Free"};
     int count = 1;  
     standard();
     for (String label : labels) {

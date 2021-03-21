@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * searcher class for ingredients in recips.
  */
 public class ByIngredientsSearch implements SearchBehaivour {
-  private UiConsoleSc ui = new UiConsoleSc();
 
   private Ingredient theOneIngredient;
 

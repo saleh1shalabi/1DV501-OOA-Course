@@ -1,9 +1,9 @@
-Sallad,Tomat : 0.5 : Tom||Gurka : 5.0 : GrUka||Sallad : 1.0 : Salladen ju Idiot||Majs : 1.0 : Gott||,Hacka allt||Krydda||Blanda||,3,Vegan,5
-Tea,Socker : 2.0 : 2||Mjölk : 0.1 : Mjölk i TE||,N||,1,Dessert,10
-Coffe,Kaffe : 2.0 : Pigghet||Mjölk : 0.1 : MjölkIkaffe||,N||,1,Dessert,9
-EfterRätt,Äpple : 3.0 : Äppel||Mjölk : 0.5 : Därför||Socker : 9.0 : Sööt||,Sss||,9,Dessert,8
-BanApple,Banan : 0.3 : Ban||Äpple : 0.2 : Apple||,N||,5,Dessert,4
-Spenat Soppa,Spenat : 9.0 : Soppan||Mjölk : 1.0 : Soooo ppp||,N||,3,Vegan,5
-Kakao Dryck,Mjölk : 0.3 : Milk||Kakao : 0.0 : Tt||,Hämta ett glas||Koka mjölken||Addera coco||Drick upp||Diska Glaset||Torka glaset||,1,Q,5
-MAJS,Majs : 1.0 : Majs||Majs : 4.0 : More Majs||Gurka : 1.0 : Bra Compo||,Ssssss||,5,Q,3
-Ägg röra,Ägg : 8.0 : Ägg||,Hämta ägg||Knäck äggen||Steka||Ät||,3,Q,7
+Sallad,Tomat : 0.5 : Tom||Gurka : 5.0 : GrUka||Sallad : 1.0 : Salladen ju||Majs : 1.0 : Gott||,Hacka allt||Krydda||Blanda||,3,Vegan,5
+Tea,Socker : 2.0 : 2||Mjölk : 0.1 : Mjölk i TE||,One Step||Tow steps||,1,Dessert,10
+Coffe,Kaffe : 2.0 : Pigghet||Mjölk : 0.1 : MjölkIkaffe||,One Step||Tow steps||,1,Dessert,9
+EfterRätt,Äpple : 3.0 : Äppel||Mjölk : 0.5 : Därför||Socker : 9.0 : Sööt||,One Step||Tow steps||,9,Dessert,8
+BanApple,Banan : 0.3 : Ban||Äpple : 5 : Apple||,One Step||Tow steps||,5,Dessert,4
+Spenat Soppa,Spenat : 9.0 : Soppan||Mjölk : 1.0 : Sooooppp||,One Step||Tow steps||,3,Vegetarian,5
+Kakao Dryck,Mjölk : 0.3 : Milk||Kakao : 0.2 : Tt||,Hämta ett glas||Koka mjölken||Addera Kakao||Drick upp||Diska Glaset||Torka glaset||,1,Vegetarian,5
+MAJS,Majs : 1.0 : Majs||Majs : 4.0 : More Majs||Gurka : 1.0 : Bra Compo||,One Step||Tow steps||,5,Vegan,3
+Ägg röra,Ägg : 8.0 : Ägg||,Hämta ägg||Knäck äggen||Steka||Ät||,3,Vegan,7

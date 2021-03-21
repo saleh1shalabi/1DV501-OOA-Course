@@ -7,7 +7,6 @@ import java.util.ArrayList;
  */
 public class ByLabelSearch implements SearchBehaivour {
 
-  private UiConsoleSc ui = new UiConsoleSc();
   
   /**
    * search recips with a specific label.

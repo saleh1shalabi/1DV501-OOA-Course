@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * searcher class price for recips.
  */
 public class ByPriceSearch implements SearchBehaivour {
-  private UiConsoleSc ui = new UiConsoleSc();
 
   /**
    * search with a price.

@@ -41,7 +41,7 @@ The user is not able to add an non existing ingredient to a recipe due when adin
 
 When adding a new ingredient the user is able to write name, give it a price (the price should be of the type int), choose a label from the hardcoded ones, and add unit for the ingredient. The unit is of the type String and can be what ever the user chooses it to be. 
 
-## User Abilities
+## User Options
 
 What the user is able to do in this program:
 

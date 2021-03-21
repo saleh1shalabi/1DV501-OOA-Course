@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * searcher class for portions number in recips.
  */
 public class ByPortionsSearch implements SearchBehaivour {
-  private UiConsoleSc ui = new UiConsoleSc();
+
 
   /**
    * searcher for recips of X portion.
