@@ -56,7 +56,7 @@ public class FileManager {
     ArrayList<ArrayList<String>> ingr = new ArrayList<>(ingredientReader());
     for (ArrayList<String> ings : ingr) {
       Ingredient ing = (new Ingredient(ings.get(0), ings.get(1), 
-          Double.parseDouble(ings.get(2)), ings.get(3)));
+          Integer.parseInt(ings.get(2)), ings.get(3)));
       ingredients.add(ing);
     }
     return ingredients;
@@ -125,7 +125,8 @@ public class FileManager {
       recipWriter = new FileWriter(pathToRecips, StandardCharsets.UTF_8);
       for (Recip recip : recips) {
         recipWriter.append(recip.getName() + "," + recip.writeRecip() 
-            + "," + recip.lableGetter() + "\n");
+            + "," + recip.lableGetter() 
+            + "," + recip.gradeGetter() + "\n");
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -167,6 +168,7 @@ public class FileManager {
 
       final String lable = rec[4].substring(0, 1).toUpperCase() + rec[4].substring(1);
 
+
       for (String ing : ingrediensFromRecip) {
         String thisOne = ing.replace(":", ",");
         String[] theOtherOne = thisOne.split(",");
@@ -178,8 +180,12 @@ public class FileManager {
             while (theOtherOne[2].startsWith(" ")) {
               theOtherOne[2] = theOtherOne[2].substring(1, theOtherOne[2].length());
             }
-            recip.addIngredientFromFile(ingr, Double.parseDouble(theOtherOne[1].replace(" ", "")),
-                  theOtherOne[2]);
+            double meny = Math.round(Double.parseDouble(theOtherOne[1].replace(" ", "")) 
+                * 10.0) / 10.0;
+            recip.addIngredientFromFile(ingr, meny, theOtherOne[2]);
+            break;
+          } else {
+            // if one ingredient isnät found dont add the recip
             break;
           }
         }
@@ -192,8 +198,12 @@ public class FileManager {
           recip.makeWayFromFile(steg);
         }
       }
+
+      int grade = Integer.parseInt(rec[5]);
+
       recip.portionSetter(Integer.parseInt(numberPortions));
       recip.setLableFromFile(lable);
+      recip.gradeSetter(grade);
       recips.add(recip);
     }
     return recips;

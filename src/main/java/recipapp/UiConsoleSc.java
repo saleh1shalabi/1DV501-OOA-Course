@@ -36,7 +36,7 @@ public class UiConsoleSc {
         double nr = Double.parseDouble(input.nextLine());
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        return nr;
+        return Math.round(nr * 10.0) / 10.0;
       } catch (Exception e) {
         wronger();
       }
@@ -125,7 +125,7 @@ public class UiConsoleSc {
   public void recipEdit() {
     System.out.println(standard + "1. Name\n    2. Ingredients\n"
         + "    3. The way of making\n    4. Edit Lable\n    "
-        + "5. Number Of Portions\n    0. Back to Recip Menu\n");
+        + "5. Number Of Portions\n    6. Edit Grade\n    0. Back to Recip Menu\n");
   }
 
   /**
@@ -146,13 +146,13 @@ public class UiConsoleSc {
     System.out.println("Wrong Value!");
   }
 
-  public void newValue() {
-    System.out.println("Enter the new value!");
-  }
-
+  /**
+   * search menu.
+   */
   public void search() {
     System.out.println(standard + "1. Search by Price\n    2. Search by Ingredients\n"
-        + "    3. Search by Portion number\n    4. Search by Lable\n    0. Back to Main Menu\n");
+        + "    3. Search by Portion number\n    4. Search by Lable\n"
+        + "    5. Search by Grade\n    0. Back to Main Menu\n");
   }
 
   /**

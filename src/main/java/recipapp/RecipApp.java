@@ -35,10 +35,10 @@ public class RecipApp {
     final String mg = ui.stringGetter();
     
     System.out.println("What Is The Price For (" + ne + "): ");
-    double pr = ui.doubleGetter();
+    int pr = ui.intGetter();
     while (pr <= 0) {
       ui.wronger();
-      pr = ui.doubleGetter();
+      pr = ui.intGetter();
     }
 
     System.out.println("What Is The Lable For (" + ne + "): ");
@@ -76,6 +76,8 @@ public class RecipApp {
     recip.addIngredient(ingredients);
     recip.makingWay();
     recip.lableSetter();
+    System.out.println("What Is The Grade Of This Recip?\n");
+    recip.gradeSetter(ui.compare(11) + 1);
 
     recips.add(recip);
   }
@@ -203,10 +205,10 @@ public class RecipApp {
           System.out.println("\nPrice Of " + ingredients.get(ingIndex).getName() 
               + " are (" + ingredients.get(ingIndex).getPrice() + ")\n");
           System.out.print("New Price: ");
-          double price = ui.doubleGetter();
+          int price = ui.intGetter();
           while (price <= 0) {
             ui.wronger();
-            price = ui.doubleGetter();
+            price = ui.intGetter();
           }
           ingredients.get(ingIndex).editPrice(price);
           System.out.println("\nThe Price have been Edited!\n");
@@ -272,6 +274,7 @@ public class RecipApp {
                 
                 System.out.println("Recip: " + recips.get(recipIndex).getName()
                     + "\n\nLable: " + recips.get(recipIndex).lableGetter()
+                    + "\n\nGrade: " + recips.get(recipIndex).gradeGetter()
                     + "\n\nIngredients:\n" + recips.get(recipIndex).getIngredients() 
                     + "\n\nPortions:\n(" + recips.get(recipIndex).getPortions() 
                     + ")\n\nSteps:\n" + recips.get(recipIndex).viewWayMake()
@@ -367,6 +370,13 @@ public class RecipApp {
           System.out.println("The Number Of Portions have been Edited");
           ui.pressToReturn();
           break;
+        case 6:
+          //grade edit
+          System.out.println("What Is The new grade Of " + recips.get(recipIndex).getName() + "?");
+          recips.get(recipIndex).gradeSetter(ui.compare(11) + 1);
+          System.out.println("The grade have been Edited");
+          ui.pressToReturn();
+          break;
         default:
           ui.wronger();
       }
@@ -430,7 +440,7 @@ public class RecipApp {
           ui.standard();
           System.out.println(recips.get(recipIndex).getIngredients());
           ingIndex = ui.compare(recips.get(recipIndex).ingredientsSize());
-          ui.newValue();
+          System.out.println("Enter the new value!");
           recips.get(recipIndex).editIngredientAmount(ingIndex);
           ui.pressToReturn();
           break;
@@ -439,7 +449,7 @@ public class RecipApp {
           ui.standard();
           System.out.println(recips.get(recipIndex).getIngredients());
           ingIndex = ui.compare(recips.get(recipIndex).ingredientsSize());
-          ui.newValue();
+          System.out.println("Enter the new value!");
           recips.get(recipIndex).editIngredientComment(ingIndex);
           ui.pressToReturn();
           break; 
@@ -485,6 +495,10 @@ public class RecipApp {
           sh = new ByLableSearch();
           sh.search(recips);
           break;   
+        case 5:
+          sh = new ByGradeSearch();
+          sh.search(recips);
+          break;  
         default:
           ui.wronger(); 
       }

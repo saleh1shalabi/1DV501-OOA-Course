@@ -12,7 +12,7 @@ public class Ingredient {
   /**
    * ingredient object.
    */
-  public Ingredient(String name, String unit, double price, String lable) {
+  public Ingredient(String name, String unit, int price, String lable) {
     this.name = name;
     this.unit = unit;
     this.price = price;
@@ -43,7 +43,7 @@ public class Ingredient {
     lable = newLable;
   }
 
-  public void editPrice(Double newPrice) {
+  public void editPrice(int newPrice) {
     price = newPrice;
   }
 

@@ -15,7 +15,8 @@ public class Recip {
   private ArrayList<String> wayToMake;
   private ArrayList<ArrayList<?>> recipt;
   private int portions;
-  private String lable; 
+  private String lable;
+  private int grade; 
 
   /**
    * Recip Object.
@@ -28,6 +29,14 @@ public class Recip {
     recipt = new ArrayList<>();
     wayToMake = new ArrayList<>();
 
+  }
+
+  public void gradeSetter(int grade) {
+    this.grade = grade;
+  }
+
+  public int gradeGetter() {
+    return grade;
   }
 
   public void lableSetter() {
