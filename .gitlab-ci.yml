@@ -45,5 +45,5 @@ test:
   artifacts:
     reports:
       junit:
-        - build/test-results/TEST-*.xml
-        - build/test-results/test/TEST-*.xml
+        - app/build/test-results/TEST-*.xml
+        - app/build/test-results/test/TEST-*.xml
