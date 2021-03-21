@@ -41,8 +41,8 @@ public class RecipApp {
       pr = ui.intGetter();
     }
 
-    System.out.println("What Is The Lable For (" + ne + "): ");
-    String lb = ui.chooseIngredientLable();
+    System.out.println("What Is The Label For (" + ne + "): ");
+    String lb = ui.chooseIngredientLabel();
 
     Ingredient ing = (new Ingredient(ne, mg, pr, lb));
     ingredients.add(ing);
@@ -55,7 +55,7 @@ public class RecipApp {
    */
   private void viewIngredients() {
     int x = 0;
-    System.out.println("\n\nAll Available Ingredients are:\n");
+    System.out.println("\n\nAll Availabel Ingredients are:\n");
     for (Ingredient c : ingredients) {
       x++;
       System.out.print(x + ". " + c.getName() + "\n");
@@ -67,17 +67,17 @@ public class RecipApp {
    * new recip from user.
    */
   private void addRecip() {
-    System.out.println("What is the name of the new Recip?\n");
+    System.out.println("What is the name of the new Recipe?\n");
     recip = new Recip(ui.stringGetter());
 
-    System.out.println("How Meny Portions Is This Recip For?\n");
+    System.out.println("How Meny Portions Is This Recipe For?\n");
     recip.portionSetter(ui.intGetter());
     
     recip.addIngredient(ingredients);
     recip.makingWay();
-    recip.lableSetter();
-    System.out.println("What Is The Grade Of This Recip?\n");
-    recip.gradeSetter(ui.compare(11) + 1);
+    recip.labelSetter();
+    System.out.println("What Is The Grade Of This Recipe?\n");
+    recip.gradeSetter(ui.compare(10) + 1);
 
     recips.add(recip);
   }
@@ -87,7 +87,7 @@ public class RecipApp {
    */
   private void viewAllRecips() {
     int x = 1;
-    System.out.println("\n\nAll Available Recips are:\n");
+    System.out.println("\n\nAll Availabel Recipes are:\n");
     for (Recip c : recips) {
       System.out.print(x + ". " + c.getName() + "\n");
       x++;
@@ -149,7 +149,7 @@ public class RecipApp {
                 int ingredientIndex = ui.compare(ingredients.size());
                 System.out.println("\n\nThe Chosen Ingredient:\n");
                 System.out.println("Name: " + ingredients.get(ingredientIndex).getName());
-                System.out.println("Lable: " + ingredients.get(ingredientIndex).getLable());
+                System.out.println("Label: " + ingredients.get(ingredientIndex).getLabel());
                 System.out.println("Price: " + ingredients.get(ingredientIndex).getPrice());
                 System.out.println("Unit: " + ingredients.get(ingredientIndex).getUnit() + "\n\n");
                 ui.pressToReturn();
@@ -224,11 +224,11 @@ public class RecipApp {
           ui.pressToReturn();
           break;
         case 4:
-          // lable Edit
-          System.out.println("\nLable Of " + ingredients.get(ingIndex).getName() 
-              + " are (" + ingredients.get(ingIndex).getLable() + ")\n");
-          ingredients.get(ingIndex).editLable(ui.chooseIngredientLable());
-          System.out.println("\nThe Lable have been Edited!\n");
+          // label Edit
+          System.out.println("\nLabel Of " + ingredients.get(ingIndex).getName() 
+              + " are (" + ingredients.get(ingIndex).getLabel() + ")\n");
+          ingredients.get(ingIndex).editLabel(ui.chooseIngredientLabel());
+          System.out.println("\nThe Label have been Edited!\n");
           ui.pressToReturn();
           break;
         default:
@@ -255,7 +255,7 @@ public class RecipApp {
           switch (viewVal) {
             case 1:
               if (recips.isEmpty()) {
-                System.out.println("There Is Now Recips Yet!");
+                System.out.println("There Is Now Recipes Yet!");
                 ui.pressToReturn();
               } else {
                 viewAllRecips();
@@ -265,15 +265,15 @@ public class RecipApp {
             case 2:
               // specieal recip view
               if (recips.isEmpty()) {
-                System.out.println("There Is Now Recips Yet!");
+                System.out.println("There Is Now Recipes Yet!");
                 ui.pressToReturn();
               } else {
                 ui.standard();
                 viewAllRecips();
                 int recipIndex = ui.compare(recips.size());
                 
-                System.out.println("Recip: " + recips.get(recipIndex).getName()
-                    + "\n\nLable: " + recips.get(recipIndex).lableGetter()
+                System.out.println("Recipe: " + recips.get(recipIndex).getName()
+                    + "\n\nLabel: " + recips.get(recipIndex).labelGetter()
                     + "\n\nGrade: " + recips.get(recipIndex).gradeGetter()
                     + "\n\nIngredients:\n" + recips.get(recipIndex).getIngredients() 
                     + "\n\nPortions:\n(" + recips.get(recipIndex).getPortions() 
@@ -285,7 +285,7 @@ public class RecipApp {
             case 3:
               // Special Portions
               if (recips.isEmpty()) {
-                System.out.println("There Is Now Recips Yet!");
+                System.out.println("There Is Now Recipes Yet!");
                 ui.pressToReturn();
               } else {
                 ui.standard();
@@ -313,11 +313,11 @@ public class RecipApp {
           ui.standard();
           viewAllRecips();
           int recipIndex = ui.compare(recips.size());
-          System.out.println("Are You Sure To Delete Recip? \n" 
+          System.out.println("Are You Sure To Delete Recipe? \n" 
               + recips.get(recipIndex).getName() + " (Y For Yes)");
           if (ui.stringGetter().equalsIgnoreCase("Y")) {
             recips.remove(recipIndex);
-            System.out.println("Recip Is Now Deleted!\n\n");
+            System.out.println("Recipe Is Now Deleted!\n\n");
           } else {
             System.out.println("Operation Aborted!\n\n");
           }
@@ -357,10 +357,10 @@ public class RecipApp {
           recipStepsEditor(recipIndex);
           break;
         case 4:
-          // Lable Edit
-          System.out.println("What Is The New Lable?");
-          recips.get(recipIndex).lableSetter();
-          System.out.println("The Lable have been Edited");
+          // Label Edit
+          System.out.println("What Is The New Label?");
+          recips.get(recipIndex).labelSetter();
+          System.out.println("The Label have been Edited");
           ui.pressToReturn();
           break;
         case 5:
@@ -373,7 +373,7 @@ public class RecipApp {
         case 6:
           //grade edit
           System.out.println("What Is The new grade Of " + recips.get(recipIndex).getName() + "?");
-          recips.get(recipIndex).gradeSetter(ui.compare(11) + 1);
+          recips.get(recipIndex).gradeSetter(ui.compare(10) + 1);
           System.out.println("The grade have been Edited");
           ui.pressToReturn();
           break;
@@ -492,7 +492,7 @@ public class RecipApp {
           sh.search(recips);
           break;
         case 4:
-          sh = new ByLableSearch();
+          sh = new ByLabelSearch();
           sh.search(recips);
           break;   
         case 5:

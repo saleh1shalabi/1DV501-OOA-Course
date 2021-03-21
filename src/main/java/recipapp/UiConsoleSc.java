@@ -18,6 +18,7 @@ public class UiConsoleSc {
     while (true) {
       try {
         int nr = Integer.parseInt(input.nextLine());
+        // clears the console
         System.out.print("\033[H\033[2J");
         System.out.flush();
         return nr;
@@ -34,9 +35,18 @@ public class UiConsoleSc {
     while (true) {
       try {
         double nr = Double.parseDouble(input.nextLine());
+        // clears the console 
         System.out.print("\033[H\033[2J");
         System.out.flush();
-        return Math.round(nr * 10.0) / 10.0;
+        // round to only 1 decimal 
+        double te = Math.round(nr * 10.0) / 10.0;
+        // check if the value is 0
+        while (te == 0) {
+          System.out.println("you can not add så smal number");
+          nr = Double.parseDouble(input.nextLine());
+          te = Math.round(nr * 10.0) / 10.0;
+        }
+        return te;
       } catch (Exception e) {
         wronger();
       }
@@ -51,9 +61,10 @@ public class UiConsoleSc {
     do {
       st = input.nextLine();
     } while (st.equals(""));
+    // clears the console
     System.out.print("\033[H\033[2J");
     System.out.flush();
-
+    // returns a string with upper case at the first char
     return st = st.substring(0, 1).toUpperCase() + st.substring(1);
   }
 
@@ -86,8 +97,12 @@ public class UiConsoleSc {
     System.out.flush();
   }
 
+  /**
+   * Main menu.
+   */
   public void menu() {
-    System.out.println("\nThis is the menu of The Recip App:\n    1. Ingredients\n    2. Recip\n" 
+    System.out.println("\nThis is the menu of The Recipes App:\n    1. Ingredients\n"
+        + "    2. Recipes\n" 
         + "    3. Search\n    0. Quit\n");
   }
 
@@ -101,7 +116,7 @@ public class UiConsoleSc {
   }
 
   public void ingredeientEdit() {
-    System.out.println(standard + "1. Name\n    2. Price\n    3. Unit\n    4. Lable\n"
+    System.out.println(standard + "1. Name\n    2. Price\n    3. Unit\n    4. Label\n"
         + "    0. Back to Ingredients Menu");
   }
 
@@ -110,13 +125,13 @@ public class UiConsoleSc {
   }
 
   public void recip() {
-    System.out.println(standard + "1. View Recip\n    2. Add Recip\n"
-        + "    3. Edit a Recip\n    4. Remove Recip\n    0. Back to Main Menu\n");
+    System.out.println(standard + "1. View Recipes\n    2. Add Recipe\n"
+        + "    3. Edit a Recipe\n    4. Remove Recipe\n    0. Back to Main Menu\n");
   }
 
   public void recipView() {
-    System.out.println(standard + "1. All Availble Recips\n    2. Details about one\n" 
-        + "    3. A Recip With Specieal given Portion Number\n");
+    System.out.println(standard + "1. All Availble Recipes\n    2. Details about one\n" 
+        + "    3. A Recipe With Specieal given Portion Number\n");
   }
 
   /**
@@ -124,8 +139,8 @@ public class UiConsoleSc {
    */
   public void recipEdit() {
     System.out.println(standard + "1. Name\n    2. Ingredients\n"
-        + "    3. The way of making\n    4. Edit Lable\n    "
-        + "5. Number Of Portions\n    6. Edit Grade\n    0. Back to Recip Menu\n");
+        + "    3. The way of making\n    4. Edit Label\n    "
+        + "5. Number Of Portions\n    6. Edit Grade\n    0. Back to Recipe Menu\n");
   }
 
   /**
@@ -134,12 +149,12 @@ public class UiConsoleSc {
   public void recipEditIngredient() {
     System.out.println(standard + "1. Add Ingredient\n    2. Edit an Ingredient Amount\n"
         + "    3. Edit an Ingredient Comment\n    4. Remove an Ingredient\n"
-        + "    0. Back to Recip Edit Menu\n");
+        + "    0. Back to Recipe Edit Menu\n");
   }
 
   public void recipEditWay() {
     System.out.println(standard + "1. Add Step At End\n    2. Add Step At Specific place\n"
-        + "    3. Remove a Step\n    4. Edit a Step\n    0. Back to Recip Edit Menu\n");
+        + "    3. Remove a Step\n    4. Edit a Step\n    0. Back to Recipe Edit Menu\n");
   }
 
   public void wronger() {
@@ -151,20 +166,20 @@ public class UiConsoleSc {
    */
   public void search() {
     System.out.println(standard + "1. Search by Price\n    2. Search by Ingredients\n"
-        + "    3. Search by Portion number\n    4. Search by Lable\n"
+        + "    3. Search by Portion number\n    4. Search by Label\n"
         + "    5. Search by Grade\n    0. Back to Main Menu\n");
   }
 
   /**
-   * method to set lable to a recip.
+   * method to set label to a recip.
    */
-  public String chooseRecipLable() {
+  public String chooseRecipLabel() {
     String[] labels = {"Dessert", "Dinner", "Breakfast" 
         + "Lunch", "BBQ", "Vegetarian", "Vegan", "Dairy Free"};
     int count = 1;  
     standard();
-    for (String lable : labels) {
-      System.out.println(count + ". " + lable);
+    for (String label : labels) {
+      System.out.println(count + ". " + label);
       count++;
     }
     int choose = compare(9);
@@ -172,15 +187,15 @@ public class UiConsoleSc {
   }
 
   /**
-   * method to set lable to a Ingredient.
+   * method to set label to a Ingredient.
    */
-  public String chooseIngredientLable() {
+  public String chooseIngredientLabel() {
     
     String[] labels = {"Vegan", "Dairy", "Gluten", "Fish & SeaFood", "meat", "Chicken"};
     int count = 1;
     standard();  
-    for (String lable : labels) {
-      System.out.println(count + ". " + lable);
+    for (String label : labels) {
+      System.out.println(count + ". " + label);
       count++;
     }
     int choose = compare(6);

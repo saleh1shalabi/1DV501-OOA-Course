@@ -9,13 +9,13 @@ public class Recip {
 
   private String name;
   private ArrayList<Ingredient> ingredients;
-  private ArrayList<Double> meny;
+  private ArrayList<Double> many;
   private ArrayList<String> comments;
   private UiConsoleSc ui = new UiConsoleSc();
   private ArrayList<String> wayToMake;
   private ArrayList<ArrayList<?>> recipt;
   private int portions;
-  private String lable;
+  private String label;
   private int grade; 
 
   /**
@@ -24,7 +24,7 @@ public class Recip {
   public Recip(String name) {
     this.name = name;
     ingredients = new ArrayList<>();
-    meny = new ArrayList<>();
+    many = new ArrayList<>();
     comments = new ArrayList<>();
     recipt = new ArrayList<>();
     wayToMake = new ArrayList<>();
@@ -39,16 +39,16 @@ public class Recip {
     return grade;
   }
 
-  public void lableSetter() {
-    lable = ui.chooseRecipLable();
+  public void labelSetter() {
+    label = ui.chooseRecipLabel();
   }
 
-  public void setLableFromFile(String lable) {
-    this.lable = lable;
+  public void setLabelFromFile(String label) {
+    this.label = label;
   }
 
-  public String lableGetter() {
-    return lable;
+  public String labelGetter() {
+    return label;
   }
 
   public void makeWayFromFile(String steg) {
@@ -90,7 +90,7 @@ public class Recip {
    * adds ingredient to the recip from the user.
    */
   public void addIngredient(ArrayList<Ingredient> ingredientz) {
-    System.out.println("ADD new ingredient!");
+    System.out.println("Add new ingredient!");
     String more = "";
     while (!(more.equalsIgnoreCase("n"))) {
       int x = 0;
@@ -114,14 +114,14 @@ public class Recip {
       String reason = ui.stringGetter();
 
       comments.add(reason);
-      meny.add(much);
+      many.add(much);
       ingredients.add(ingredientz.get(theIngredient));
 
       recipt.add(ingredients);
-      recipt.add(meny);
+      recipt.add(many);
       recipt.add(comments);
 
-      System.out.println("ADD new ingredient! (N for No)");
+      System.out.println("Add new ingredient! (N for No)");
       more = ui.stringGetter();
     }
   }
@@ -139,7 +139,7 @@ public class Recip {
     StringBuilder x = new StringBuilder();
     for (int c = 0; c < ingredients.size(); c++) {
       x.append(y);
-      x.append(". " + ingredients.get(c).getName() + " : " + meny.get(c) 
+      x.append(". " + ingredients.get(c).getName() + " : " + many.get(c) 
           + " (" + ingredients.get(c).getUnit() + ")"
           + " : " + "(Reason) " + comments.get(c) + "\n");
       y++;
@@ -153,7 +153,7 @@ public class Recip {
   public int getPrice() {
     int x = 0;
     for (int c = 0; c < ingredients.size(); c++) {
-      x += ingredients.get(c).getPrice() * meny.get(c);
+      x += ingredients.get(c).getPrice() * many.get(c);
     }
     return x;
   }
@@ -167,7 +167,7 @@ public class Recip {
     for (int c = 0; c < ingredients.size(); c++) {
       x.append(ingredients.get(c).getName().substring(0, 1).toUpperCase() 
           + ingredients.get(c).getName().substring(1) 
-          + " : " + meny.get(c) + " : " 
+          + " : " + many.get(c) + " : " 
           + comments.get(c).substring(0, 1).toUpperCase() + comments.get(c).substring(1) + "||");
     }
     x.append(",");
@@ -198,14 +198,14 @@ public class Recip {
    * edits the recip name.
    */
   public void editName() {
-    System.out.println("What is the new name of the recip " + getName());
+    System.out.println("What is the new name of the Recipe " + getName());
     String newName = ui.stringGetter();
     name = newName;
 
   }
   
   public void editIngredientAmount(int index) {
-    meny.set(index, ui.doubleGetter());
+    many.set(index, ui.doubleGetter());
 
   }
 
@@ -221,7 +221,7 @@ public class Recip {
     System.out.println("Are you sure (y)");
     if (ui.stringGetter().equalsIgnoreCase("y")) {
       ingredients.remove(index);
-      meny.remove(index);
+      many.remove(index);
       comments.remove(index);
     } else {
       System.out.println("Opretion Aborted");
@@ -303,11 +303,11 @@ public class Recip {
    */
   public void addIngredientFromFile(Ingredient ingr, double much, String reason) {
     comments.add(reason);
-    meny.add(much);
+    many.add(much);
     ingredients.add(ingr);
 
     recipt.add(ingredients);
-    recipt.add(meny);
+    recipt.add(many);
     recipt.add(comments);
   }
 
@@ -316,7 +316,7 @@ public class Recip {
    */
   public void speciealPortionGetter(int port) {
     ArrayList<Double> ny = new ArrayList<>();
-    for (double nr : meny) {
+    for (double nr : many) {
       ny.add(nr / getPortions());
     }
     int y = 1;
@@ -324,10 +324,16 @@ public class Recip {
 
     for (int c = 0; c < ingredients.size(); c++) {
       x.append(y);
+      double toRound = 10.0;
+      double amount = (Math.round(ny.get(c) * port * toRound)) / toRound;
+      while (amount == 0) {
+        toRound = toRound * 10;
+        amount = (Math.round(ny.get(c) * port * toRound)) / toRound;
+      }
       x.append(". " + ingredients.get(c).getName() + " : " 
           // round the amount of ingrdeient when the portion is changed 
           + (Math.round(ny.get(c) * port * 10.0)) / 10.0  
-          + " (" + ingredients.get(c).getUnit() + ")"
+          + " (" + amount + ")"
           + " : " + "(Reason) " + comments.get(c) + "\n");
       y++;
     }
@@ -336,7 +342,7 @@ public class Recip {
     for (int c = 0; c < ingredients.size(); c++) {
       prise += ingredients.get(c).getPrice() * (ny.get(c) * port);
     }
-    System.out.println("\nLable:" + lableGetter() + "\n\nPrice (" + prise + ")\n" 
+    System.out.println("\nLabel:" + labelGetter() + "\n\nPrice (" + prise + ")\n" 
         + "\nSteps:\n" + viewWayMake());
   }
 }

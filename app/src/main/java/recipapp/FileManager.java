@@ -67,7 +67,7 @@ public class FileManager {
             + ingredient.getUnit().substring(0,1).toUpperCase() 
             + ingredient.getUnit().substring(1)  
             + "," + ingredient.getPrice() + ","
-            + ingredient.getLable() + "\n");
+            + ingredient.getLabel() + "\n");
       }
       ingWriter.close();
     } catch (IOException e) {
@@ -95,14 +95,14 @@ public class FileManager {
   }
 
   /**
-   * the method that writes the recips into the file.
+   * the method that writes the recipes into the file.
    */
   public void recipWriter(ArrayList<Recip> recips) {
     try {
       FileWriter recipWriter = new FileWriter(pathToRecips);
       for (Recip recip : recips) {
         recipWriter.append(recip.getName() + "," + recip.writeRecip() 
-            + "," + recip.lableGetter() + "\n");
+            + "," + recip.labelGetter() + "\n");
       }
       recipWriter.close();
     } catch (IOException e) {
@@ -111,7 +111,7 @@ public class FileManager {
   }
 
   /**
-   * the method that creates the recips.
+   * the method that creates the recipes.
    */
   public ArrayList<Recip> recipAdder() {
     ArrayList<Recip> recips = new ArrayList<>();
@@ -129,7 +129,7 @@ public class FileManager {
 
       String numberPortions = rec[3];
 
-      final String lable = rec[4].substring(0,1).toUpperCase() + rec[4].substring(1);
+      final String label = rec[4].substring(0,1).toUpperCase() + rec[4].substring(1);
 
       for (String ing : ingrediensFromRecip) {
         String thisOne = ing.replace(":", ",");
@@ -157,7 +157,7 @@ public class FileManager {
         }
       }
       recip.portionSetter(Integer.parseInt(numberPortions));
-      recip.setLableFromFile(lable);
+      recip.setLabelFromFile(label);
       recips.add(recip);
     }
     return recips;

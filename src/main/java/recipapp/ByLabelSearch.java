@@ -3,28 +3,28 @@ package recipapp;
 import java.util.ArrayList;
 
 /**
- * searcher class for lable in recips.
+ * searcher class for label in recips.
  */
-public class ByLableSearch implements SearchBehaivour {
+public class ByLabelSearch implements SearchBehaivour {
 
   private UiConsoleSc ui = new UiConsoleSc();
   
   /**
-   * search recips with a specific lable.
+   * search recips with a specific label.
    */
   @Override
   public void search(ArrayList<Recip> recips) {
-    String lable = ui.chooseRecipLable();
+    String label = ui.chooseRecipLabel();
     StringBuilder x = new StringBuilder();
     int y = 1;      
     for (Recip recip : recips) {
-      if (recip.lableGetter().equals(lable)) {
+      if (recip.labelGetter().equals(label)) {
         x.append(y + ". " + recip.getName() + "\n");
         y++;
       }
     }
-    System.out.println("The Recips With The Lable (" 
-        + lable + ") Are:\n\n" + x.toString());
+    System.out.println("The Recipes With The Label (" 
+        + label + ") Are:\n\n" + x.toString());
   }
 
   @Override

@@ -6,13 +6,13 @@ public class Recip {
 
   private String name;
   private ArrayList<Ingredient> ingredients;
-  private ArrayList<Double> meny;
+  private ArrayList<Double> many;
   private ArrayList<String> comments;
   private UiConsoleSc ui = new UiConsoleSc();
   private ArrayList<String> wayToMake;
   private ArrayList<ArrayList<?>> recipt;
   private int portions;
-  private String lable; 
+  private String label; 
 
   /**
    * Recip Object.
@@ -20,23 +20,23 @@ public class Recip {
   public Recip(String name) {
     this.name = name;
     ingredients = new ArrayList<>();
-    meny = new ArrayList<>();
+    many = new ArrayList<>();
     comments = new ArrayList<>();
     recipt = new ArrayList<>();
     wayToMake = new ArrayList<>();
 
   }
 
-  public void lableSetter() {
-    lable = ui.chooseRecipLable();
+  public void labelSetter() {
+    label = ui.chooseRecipLabel();
   }
 
-  public void setLableFromFile(String lable) {
-    this.lable = lable;
+  public void setLabelFromFile(String label) {
+    this.label = label;
   }
 
-  public String lableGetter() {
-    return lable;
+  public String labelGetter() {
+    return label;
   }
 
   public void makeWayFromFile(String steg) {
@@ -52,7 +52,7 @@ public class Recip {
   }
 
   /**
-   * the method called when the recip is done
+   * the method called when the recipe is done
    * and making way is asked.
    */
   public void makingWay() {
@@ -75,10 +75,10 @@ public class Recip {
   }
 
   /**
-   * adds ingredient to the recip from the user.
+   * adds ingredient to the recipe from the user.
    */
   public void addIngredient(ArrayList<Ingredient> ingredientz) {
-    System.out.println("ADD new ingredient!");
+    System.out.println("Add new ingredient!");
     String more = "";
     while (!(more.equalsIgnoreCase("n"))) {
       int x = 0;
@@ -102,14 +102,14 @@ public class Recip {
       String reason = ui.stringGetter();
 
       comments.add(reason);
-      meny.add(much);
+      many.add(much);
       ingredients.add(ingredientz.get(theIngredient));
 
       recipt.add(ingredients);
-      recipt.add(meny);
+      recipt.add(many);
       recipt.add(comments);
 
-      System.out.println("ADD new ingredient! (N for No)");
+      System.out.println("Add new ingredient! (N for No)");
       more = ui.stringGetter();
     }
   }
@@ -127,7 +127,7 @@ public class Recip {
     StringBuilder x = new StringBuilder();
     for (int c = 0; c < ingredients.size(); c++) {
       x.append(y);
-      x.append(". " + ingredients.get(c).getName() + " : " + meny.get(c) 
+      x.append(". " + ingredients.get(c).getName() + " : " + many.get(c) 
           + " (" + ingredients.get(c).getUnit() + ")"
           + " : " + "(Reason) " + comments.get(c) + "\n");
       y++;
@@ -136,26 +136,26 @@ public class Recip {
   }
 
   /**
-   * get the the price of the recip.
+   * get the the price of the recipe.
    */
   public int getPrice() {
     int x = 0;
     for (int c = 0; c < ingredients.size(); c++) {
-      x += ingredients.get(c).getPrice() * meny.get(c);
+      x += ingredients.get(c).getPrice() * many.get(c);
     }
     return x;
   }
 
   /**
    * the method called only from FileManager class
-   * to write the recip to the file.
+   * to write the recipe to the file.
    */
   public String writeRecip() {
     StringBuilder x = new StringBuilder();
     for (int c = 0; c < ingredients.size(); c++) {
       x.append(ingredients.get(c).getName().substring(0,1).toUpperCase() 
           + ingredients.get(c).getName().substring(1) 
-          + " : " + meny.get(c) + " : " 
+          + " : " + many.get(c) + " : " 
           + comments.get(c).substring(0,1).toUpperCase() + comments.get(c).substring(1) + "||");
     }
     x.append(",");
@@ -183,17 +183,17 @@ public class Recip {
   }
   
   /**
-   * edits the recip name.
+   * edits the recipe name.
    */
   public void editName() {
-    System.out.println("What is the new name of the recip " + getName());
+    System.out.println("What is the new name of the recipe " + getName());
     String newName = ui.stringGetter();
     name = newName;
 
   }
   
   public void editIngredientAmount(int index) {
-    meny.set(index, ui.doubleGetter());
+    many.set(index, ui.doubleGetter());
 
   }
 
@@ -203,13 +203,13 @@ public class Recip {
   }
 
   /**
-   * remove an ingredietn from the recip.
+   * remove an ingredietn from the recipe.
    */
   public void removeIngredientFromRecip(int index) {
     System.out.println("Are you sure (y)");
     if (ui.stringGetter().equalsIgnoreCase("y")) {
       ingredients.remove(index);
-      meny.remove(index);
+      many.remove(index);
       comments.remove(index);
     } else {
       System.out.println("Opretion Aborted");
@@ -237,7 +237,7 @@ public class Recip {
   }
 
   /**
-   * removes a step from the recip.
+   * removes a step from the recipe.
    */
   public void removeStep() {
     if (!(wayToMake.isEmpty())) {
@@ -258,7 +258,7 @@ public class Recip {
   }
 
   /**
-   * changes a step in the making way from the recip.
+   * changes a step in the making way from the recipe.
    */
   public void editStep() {
     if (!(wayToMake.isEmpty())) {
@@ -274,7 +274,7 @@ public class Recip {
   }
 
   /**
-   * checks if an ingredient is in this recip.
+   * checks if an ingredient is in this recipe.
    */
   public boolean haveIngredient(Ingredient ingr) {
 
@@ -291,20 +291,20 @@ public class Recip {
    */
   public void addIngredientFromFile(Ingredient ingr, double much, String reason) {
     comments.add(reason);
-    meny.add(much);
+    many.add(much);
     ingredients.add(ingr);
 
     recipt.add(ingredients);
-    recipt.add(meny);
+    recipt.add(many);
     recipt.add(comments);
   }
 
   /**
-   * called when a recip with speciell amount of portions is asked.
+   * called when a recipe with speciell amount of portions is asked.
    */
   public void speciealPortionGetter(int port) {
     ArrayList<Double> ny = new ArrayList<>();
-    for (double nr : meny) {
+    for (double nr : many) {
       ny.add(nr / getPortions());
     }
     int y = 1;
@@ -322,7 +322,7 @@ public class Recip {
     for (int c = 0; c < ingredients.size(); c++) {
       prise += ingredients.get(c).getPrice() * (ny.get(c) * port);
     }
-    System.out.println("\nLable:" + lableGetter() + "\n\nPrice (" + prise + ")\n" 
+    System.out.println("\nLabel:" + labelGetter() + "\n\nPrice (" + prise + ")\n" 
         + "\nSteps:\n" + viewWayMake());
   }
 }

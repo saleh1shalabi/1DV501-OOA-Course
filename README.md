@@ -1,89 +1,122 @@
-# Assignment 3
-These are the instructions for the final part of assignment 3. They complement the open instructions available on gitlab.
+# Recip App
 
-Note that this file is in md format, if you view it in a text editor it looks ok, but remember to not include for example ` surrounding commands if using cut n' paste.
+The code should work porply for all the tasks for passing grade, even for much of the higher grade. the only thing that i didnt hade the time to implement is the point 6 from higher grade requirement (*Advanced recipee search where several search expressions can be combined e.g. (tomatoes && ham) || mozzarella. The design should use the composite pattern.*). I have instead others **`SearchBehaivour`**.
 
-## Setup
-1. clone your assignment repository in a convenient directory - assignment-3 directory is created
-2. unpack the contents of the zip file into the directory (for example using `unzip monopoly.zip -d assignment-3`). Note that depending on your OS settings using normal explorer/finder tools may hide files starting with `.` using commandline is therefore reccomended. You should have the following structure:
+In this program the user is able to add a *double* amount of an ingredient to a recipe. the user is able to insert a number of the type double, and it will be automaticly rounded to a one decimal using the method `doubleGetter` in the **`UiConsole`** class
+
+```java
+public double doubleGetter() {
+  while (true) {
+    try {
+      double nr = Double.parseDouble(input.nextLine());
+      // clears the console 
+      System.out.print("\033[H\033[2J");
+      System.out.flush();
+      // round to only 1 decimal 
+      double te = Math.round(nr * 10.0) / 10.0;
+      // check if the value is 0
+      while (te == 0) {
+        System.out.println("you can not add så smal number");
+        nr = Double.parseDouble(input.nextLine());
+        te = Math.round(nr * 10.0) / 10.0;
+      }
+      return te;
+    } catch (Exception e) {
+      wronger();
+    }
+  }
+}
 ```
- assignment-3 (this is what you get when you check out the assignment)
- |- README.md (this is what you are reading)
- |- design.md (describes the design of the monopoly game)
- |- .gitignore
- |- gradlew
- |- gradlew.bat
- |- settings.gradle
- |- build.gradle
- |- .gitlab-ci
- |- src
- |  |- main
- |  |  |- java (this is the root of the source code)
- |  |  |  |- monopoly
- |  |  |  |  |- Board.java
- |  |  |  |  |- Game.java
- |  |  |  |  |- Player.java
- |  |  |  |  |- Dice.java
- |  |  |  |  |- ConsoleUI.java
- |  |  |  |  |- Free.java
- |  |  |  |  |- HumanPlayer.java
- |  |  |  |  |- Start.java
- |  |  |  |  |- Tile.java
- |  |- test
- |  |  |- java (this is the root of the test source code)
- |  |  |  |- monopoly
- |  |  |  |  |- TierOneTests.java (contains the test that should work when done)
- |  |  |  |  |- CodeQualityTests.java
- |- img
- |  |- class_diagram.jpg
- |  |- object_diagram.jpg
- |  |- sequence_diagram.jpg
- |  |- buy_sequence_diagram.jpg
- |- config
- |  |- checkstyle
- |  |  |- google_checks.xml
- |- gradle
- |  |- wrapper
- |  |  |- gradle-wrapper.jar
- |  |  |- gradle-wrapper.properties
-```
-3. Run  `chmod +x gradlew` - this adds the execute permission for gradlew which is needed on *nix operating systems
-4. Run `./gradlew build` in the console - there should be no errors, if there are try to sort them out or use course slack channel for help.
-5. Run `git add .`
-6. Run `git update-index --chmod=+x 'gradlew'` - this changes the permissions of gradlew so it can be executed on gitlab to build the code you push
-7. Run `git status` (check so that all files per above are added)
-8. Run `git commit -m "Initial commit"`
-9. Run `git push`
-10. Optional: go to gitlab and check that all files have been pushed, and that the pipieline is run (under CI/CD)
-11. Optional: go to gitlab and create the release branch then you do not need to create it later.
-12. Optional: add the Gradle Tasks extension to VS Code - this is the easiest option to get things running in vscode
-13. Optional: add the Java Test Runner extension to VS Code - this enables you to run test cases directly from VS Code
-14. Optional: Prepare your IDE (i.e VS Code) to work in the directory assignment-3 directory
-15. Optional: Change the tab settings in your IDE to 2 spaces. This is the most significant change to the google coding standards
+This will effect things such let say that you have an Ingredient name: rice, Unit: Kg
+and the user adds 0.02Kg (20 g) rice to a rceip this will be rounde to 0.0 then the usesr will be worned to change the namber. It should at least be 0.05 to be rounde upp to 0.1 then it will be accepeted.
 
-## Passing Grade Task
-1. Study the design available in `design.md`
-2. Check the test cases in `src/test/monopoly/TierOneTests.java`
-3. Uncomment one test case, work from the top to the bottom
-4. Run `./gradlew build` - test should fail (note that when you have started to make fixes the test case may succeed, and vice versa an old test case may stop working if you introduce some problem in your fixes)
-5. Fix the corresponding implementation
-6. Run `./gradlew build` - repeat from 3 as long as the test fails
-7. commit, push
-8. If there are more test cases left goto 3
-9. Run the game and make sure it is playable. You can probably use your IDE to start the game, or alternatively use gradle: `./gradlew run -q --console=plain`
-10. You are done for the passing grade and can run/play the game (this can be done all the time but there will be a null pointer exception until the first Tile constructor is fixed, this is the first test case). 
 
-## Higher Grade Tasks
-1. Implement at least one Computer player, avoid code duplication and use the existing design. The computer player does not need to be smart in any way, it can act on random (you can even have several types of players and then pit them against each other)
-2. Make sure the game is playable.
-3. Update the class diagram with the changes save as `img/updated_class_diagram.jpg`
-  
+In the same way of rounding, when the user asks about a recipe to be showen in another number of portion then that the recipe have, the ingredients amount will be rounded and presented.
+Note: let say we have a recipe with 100 portions and we will use 1 sallad for this recipe,
+the program will try to devide 1 to 100 and gets 0.01 then it will be rounded wit one deciemal ==> 0.0, if such a case happens the program will try with to show another decimal it will be 0.01 in this case. In case it will be 0.001 the program will add a decimal and so on.  
 
-## Notes
-Depending on IDE you may be able to run the test cases directly in the IDE, but make sure everything works with gradle, as there are additional test cases that concern code quality (google format and find bugs), these alert you if you have additional issues.
+The user is not able to write what label an ingredient or a recipe should have but can only choose one of hardcoded labels for them.
 
-The code standard you should follow is the google java standard. Most notable change is that indendation is 2 spaces. This can be configured in your IDE.
+The user is not able to add an non existing ingredient to a recipe due when ading ingredients to a recipe the user is able to only choose ingredients from the already existing ones.
 
-For the passing grade the task is correcting itself, and it runs a pipeline on gitlab to show this. For the final merge request everything should be passing.
-  
+When adding a new ingredient the user is able to write name, give it a price (the price should be of the type int), choose a label from the hardcoded ones, and add unit for the ingredient. The unit is of the type String and can be what ever the user chooses it to be. 
+
+## User Abilities
+
+What the user is able to do in this program:
+
+1. Ingredients.
+    1. View Ingredients.
+        - View all availble Ingredients.
+        - Show details about one Ingredient.
+    2. Add new Ingredient.
+        - It will have a Name (*String*).
+        - It will have a Price (*Integer*).
+        - It will have a Unit (*String*).
+        - It will have a Label (*The user chooses from existing ones*).
+    3. Edit An exsiting one.
+        1. Edit The Name.
+        2. Edit The Price.
+        3. Edit the Unit.
+        4. Edit The Label.
+        - Notes: Chenges will effect the Recipes  
+    4. Remove an Ingredient.
+        - When removing an Ingredient the user will be asked to confirm.
+        - Note: This will automatically remove the Ingredient from all recipees where the Ingrdeient exists.
+2. Recips.
+    1. View Recipes.
+        - View all availble Recipes.
+        - Show the details about one Recipe.
+        - Show a Recipe with a given number of Portions.
+    2. Add Recipe.
+        - It will have a Name (*String*).
+        - It will have a Number of Portions (*Integer*).
+        - It will have a Grade (*Integer between (1 - 10)*).
+        - It will have a Label (*The user chooses from existing ones*).
+        - It will have Ingredients (*The user chooses from existing ones and adds how many as wishes*).
+            - It will have a Comment (*String*).
+            - It will have a Amount (*Integer*).
+        - It will have Steps to make (*The user adds how many steps as wishes, String[]*).
+    3. Edit A Recipe.
+        1. Edit The Name.
+        2. Ingredients.
+            1. Add Ingredient.
+            2. Edit an Ingredient Amount.
+            3. Edit an Ingredient Comment.
+            4. Remove an Ingredient from Recipe.
+        3. Edit The Steps to Make.
+            1. Add a Step at The End of Steps.
+            2. Add a Step at a Specific Place Between The Steps.
+            3. Remove a Step.
+            4. Edit a Step.
+        4. Edit The Label.
+        5. Edit The Number of The Portions.
+        6. Edit The Grade.
+    4. Remove A Recipe.
+        - When removing a Recipe the user will be asked to confirm.
+3. Search For Recipes.
+    1. Search by Price
+        - All Recipes with lower than and equals the given Price will be showen.
+    2. Search by Ingredients
+        - All Recipes that have the chosen Ingredient will be showen
+    3. Search by Portion number.
+        - All Recipes with the exact number of Portions as the given one will be shown.
+    4. Search by Label
+        - All Recipes with same Label as the chosen one will be shown.
+    5. Search by Grade
+        - All Recipes with higher than and equals the given Grade will be showen.
+
+## Automaticity 
+
+The program loads all Ingredients and Recipes from the files. It also saves all changes for each and every Ingredient and Recipes, even it saves the new added Ingredients and Recipes. 
+
+## Improvements
+- Starting of with adding Ingredients, The Unit added by the User can be what ever the User choose it to be, I would insted have all possible Units as (g, hg, kg, ml, dl, l, can, pice, .....) in a hardcoded list such as the label and offer the user to choose one of them.
+
+- The main Class **`RecipApp`** is too larg, some changes can shortcut the code would be nice or dividing it to more Classes would make the code much easier to read, understande and improve.
+
+- Automatically Setted Label for Recipes such as { (vegetarian: based on no meat, fish, chicken), (vegan: based all vegan ingredients), (dairy free: based on no dairy), .... }
+
+
+
 

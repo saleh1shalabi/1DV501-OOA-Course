@@ -57,7 +57,7 @@ public class UiConsoleSc {
   /**
    * this method is used
    * when its time for the user to choose a number that will 
-   * represent the index of one ingredient or recip
+   * represent the index of one ingredient or recipe
    * with this method the user is not allowed to choose index that 
    * are out of the range.
    */
@@ -83,8 +83,12 @@ public class UiConsoleSc {
     System.out.flush();
   }
 
+  /**
+   * Main menu.
+   */
   public void menu() {
-    System.out.println("\nThis is the menu of The Recip App:\n    1. Ingredients\n    2. Recip\n" 
+    System.out.println("\nThis is the menu of The Recipes App:\n    1. Ingredients\n"
+        + "    2. Recipes\n" 
         + "    3. Search\n    0. Quit\n");
   }
 
@@ -98,7 +102,7 @@ public class UiConsoleSc {
   }
 
   public void ingredeientEdit() {
-    System.out.println(standard + "1. Name\n    2. Price\n    3. Unit\n    4. Lable\n"
+    System.out.println(standard + "1. Name\n    2. Price\n    3. Unit\n    4. Label\n"
         + "    0. Back to Ingredients Menu");
   }
 
@@ -121,12 +125,12 @@ public class UiConsoleSc {
    */
   public void recipEdit() {
     System.out.println(standard + "1. Name\n    2. Ingredients\n"
-        + "    3. The way of making\n    4. Edit Lable\n    "
+        + "    3. The way of making\n    4. Edit Label\n    "
         + "5. Number Of Portions\n    0. Back to Recip Menu\n");
   }
 
   /**
-   * the menu for editing ingrdeints in recips.
+   * the menu for editing ingrdeints in recipes.
    */
   public void recipEditIngredient() {
     System.out.println(standard + "1. Add Ingredient\n    2. Edit an Ingredient Amount\n"
@@ -149,19 +153,19 @@ public class UiConsoleSc {
 
   public void search() {
     System.out.println(standard + "1. Search by Price\n    2. Search by Ingredients\n"
-        + "    3. Search by Portion number\n    4. Search by Lable\n    0. Back to Main Menu\n");
+        + "    3. Search by Portion number\n    4. Search by Label\n    0. Back to Main Menu\n");
   }
 
   /**
-   * method to set lable to a recip.
+   * method to set label to a recip.
    */
-  public String chooseRecipLable() {
+  public String chooseRecipLabel() {
     String[] labels = {"Dessert", "Dinner", "Breakfast" 
         + "Lunch", "BBQ", "Vegetarian", "Vegan", "Dairy Free"};
     int count = 1;  
     standard();
-    for (String lable : labels) {
-      System.out.println(count + ". " + lable);
+    for (String label : labels) {
+      System.out.println(count + ". " + label);
       count++;
     }
     int choose = compare(9);
@@ -169,15 +173,15 @@ public class UiConsoleSc {
   }
 
   /**
-   * method to set lable to a Ingredient.
+   * method to set label to a Ingredient.
    */
-  public String chooseIngredientLable() {
+  public String chooseIngredientLabel() {
     
     String[] labels = {"Vegan", "Dairy", "Gluten", "Fish & SeaFood", "meat", "Chicken"};
     int count = 1;
     standard();  
-    for (String lable : labels) {
-      System.out.println(count + ". " + lable);
+    for (String label : labels) {
+      System.out.println(count + ". " + label);
       count++;
     }
     int choose = compare(6);

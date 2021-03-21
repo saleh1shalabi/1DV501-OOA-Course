@@ -10,7 +10,6 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-
 /**
  * the class that handels readin and writing from.
  */
@@ -75,7 +74,7 @@ public class FileManager {
             + ingredient.getUnit().substring(0, 1).toUpperCase() 
             + ingredient.getUnit().substring(1)  
             + "," + ingredient.getPrice() + ","
-            + ingredient.getLable() + "\n");
+            + ingredient.getLabel() + "\n");
       }
     } catch (IOException e) {
       e.printStackTrace();
@@ -125,7 +124,7 @@ public class FileManager {
       recipWriter = new FileWriter(pathToRecips, StandardCharsets.UTF_8);
       for (Recip recip : recips) {
         recipWriter.append(recip.getName() + "," + recip.writeRecip() 
-            + "," + recip.lableGetter() 
+            + "," + recip.labelGetter() 
             + "," + recip.gradeGetter() + "\n");
       }
     } catch (IOException e) {
@@ -166,8 +165,7 @@ public class FileManager {
 
       String numberPortions = rec[3];
 
-      final String lable = rec[4].substring(0, 1).toUpperCase() + rec[4].substring(1);
-
+      final String label = rec[4].substring(0, 1).toUpperCase() + rec[4].substring(1);
 
       for (String ing : ingrediensFromRecip) {
         String thisOne = ing.replace(":", ",");
@@ -180,12 +178,9 @@ public class FileManager {
             while (theOtherOne[2].startsWith(" ")) {
               theOtherOne[2] = theOtherOne[2].substring(1, theOtherOne[2].length());
             }
-            double meny = Math.round(Double.parseDouble(theOtherOne[1].replace(" ", "")) 
+            double many = Math.round(Double.parseDouble(theOtherOne[1].replace(" ", "")) 
                 * 10.0) / 10.0;
-            recip.addIngredientFromFile(ingr, meny, theOtherOne[2]);
-            break;
-          } else {
-            // if one ingredient isnät found dont add the recip
+            recip.addIngredientFromFile(ingr, many, theOtherOne[2]);
             break;
           }
         }
@@ -198,11 +193,10 @@ public class FileManager {
           recip.makeWayFromFile(steg);
         }
       }
-
       int grade = Integer.parseInt(rec[5]);
 
       recip.portionSetter(Integer.parseInt(numberPortions));
-      recip.setLableFromFile(lable);
+      recip.setLabelFromFile(label);
       recip.gradeSetter(grade);
       recips.add(recip);
     }

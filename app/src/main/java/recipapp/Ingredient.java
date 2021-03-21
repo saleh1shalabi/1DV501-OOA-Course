@@ -4,24 +4,24 @@ public class Ingredient {
   private String name;
   private String unit;
   private double price;
-  private String lable;
+  private String label;
 
   /**
    * ingredient object.
    */
-  public Ingredient(String name, String unit, double price, String lable) {
+  public Ingredient(String name, String unit, double price, String label) {
     this.name = name;
     this.unit = unit;
     this.price = price;
-    this.lable = lable;
+    this.label = label;
   }
 
   public String getName() {
     return name;
   }
 
-  public String getLable() {
-    return lable;
+  public String getLabel() {
+    return label;
   }
 
   public String getUnit() {
@@ -36,8 +36,8 @@ public class Ingredient {
     name = newName;
   }
   
-  public void editLable(String newLable) {
-    lable = newLable;
+  public void editLabel(String newLabel) {
+    label = newLabel;
   }
 
   public void editPrice(Double newPrice) {

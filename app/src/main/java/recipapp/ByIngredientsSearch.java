@@ -8,7 +8,7 @@ public class ByIngredientsSearch implements SearchBehaivour {
   private Ingredient theOneIngredient;
 
   /**
-   * searcher for an ingrdeint in recips.
+   * searcher for an ingrdeint in recipes.
    */
   @Override
   public void search(ArrayList<Recip> recips) {
@@ -20,7 +20,7 @@ public class ByIngredientsSearch implements SearchBehaivour {
         y++;
       }
     }
-    System.out.println("The Recips With Ingredient (" 
+    System.out.println("The Recipes With Ingredient (" 
         + theOneIngredient.getName() + ") Are:\n\n" + x.toString());
   }
   

@@ -26,7 +26,7 @@ public class CodeQualityTests {
   final static String codeQualityJSONFile = "./build/reports/gl-code-quality-report.json";
   final static String checkStyleJUnitFile = "./build/test-results/TEST-checkstyle.xml";
   final static String findBugsJUnitFile = "./build/test-results/TEST-findbugs.xml";
-  final static int maxQualityErrors = 5;
+  final static int maxQualityErrors = 1;
   final static String rootPackage = "recipapp";
 
   static class TestCase {

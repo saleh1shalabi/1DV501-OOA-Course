@@ -29,7 +29,7 @@ public class RecipApp {
     String ne = ui.stringGetter();
 
     System.out.println("Which Unit to Use With (" + ne + "): ");
-    String mg = ui.stringGetter();
+    final String mg = ui.stringGetter();
     
     System.out.println("What Is The Price For (" + ne + "): ");
     double pr = ui.doubleGetter();
@@ -38,8 +38,8 @@ public class RecipApp {
       pr = ui.doubleGetter();
     }
 
-    System.out.println("What Is The Lable For (" + ne + "): ");
-    String lb = ui.chooseIngredientLable();
+    System.out.println("What Is The Label For (" + ne + "): ");
+    String lb = ui.chooseIngredientLabel();
 
     Ingredient ing = (new Ingredient(ne, mg, pr, lb));
     ingredients.add(ing);
@@ -52,7 +52,7 @@ public class RecipApp {
    */
   private void viewIngredients() {
     int x = 0;
-    System.out.println("\n\nAll Available Ingredients are:\n");
+    System.out.println("\n\nAll Availabel Ingredients are:\n");
     for (Ingredient c : ingredients) {
       x++;
       System.out.print(x + ". " + c.getName() + "\n");
@@ -61,7 +61,7 @@ public class RecipApp {
   }
 
   /**
-   * new recip from user.
+   * new recipe from user.
    */
   private void addRecip() {
     System.out.println("What is the name of the new Recip?\n");
@@ -72,17 +72,17 @@ public class RecipApp {
     
     recip.addIngredient(ingredients);
     recip.makingWay();
-    recip.lableSetter();
+    recip.labelSetter();
 
     recips.add(recip);
   }
 
   /**
-   * view recips.
+   * view recipes.
    */
   private void viewAllRecips() {
     int x = 1;
-    System.out.println("\n\nAll Available Recips are:\n");
+    System.out.println("\n\nAll Availabel Recips are:\n");
     for (Recip c : recips) {
       System.out.print(x + ". " + c.getName() + "\n");
       x++;
@@ -144,7 +144,7 @@ public class RecipApp {
                 int ingredientIndex = ui.compare(ingredients.size());
                 System.out.println("\n\nThe Chosen Ingredient:\n");
                 System.out.println("Name: " + ingredients.get(ingredientIndex).getName());
-                System.out.println("Lable: " + ingredients.get(ingredientIndex).getLable());
+                System.out.println("Label: " + ingredients.get(ingredientIndex).getLabel());
                 System.out.println("Price: " + ingredients.get(ingredientIndex).getPrice());
                 System.out.println("Unit: " + ingredients.get(ingredientIndex).getUnit() + "\n\n");
                 ui.pressToReturn();
@@ -219,11 +219,11 @@ public class RecipApp {
           ui.pressToReturn();
           break;
         case 4:
-          // lable Edit
-          System.out.println("\nLable Of " + ingredients.get(ingIndex).getName() 
-              + " are (" + ingredients.get(ingIndex).getLable() + ")\n");
-          ingredients.get(ingIndex).editLable(ui.chooseIngredientLable());
-          System.out.println("\nThe Lable have been Edited!\n");
+          // label Edit
+          System.out.println("\nLabel Of " + ingredients.get(ingIndex).getName() 
+              + " are (" + ingredients.get(ingIndex).getLabel() + ")\n");
+          ingredients.get(ingIndex).editLabel(ui.chooseIngredientLabel());
+          System.out.println("\nThe Label have been Edited!\n");
           ui.pressToReturn();
           break;
         default:
@@ -233,7 +233,7 @@ public class RecipApp {
   }
 
   /**
-   * the recip menu to user.
+   * the recipe menu to user.
    */
   private void recipMenu() {
     int choose = 100;
@@ -244,7 +244,7 @@ public class RecipApp {
         case 0:
           break;
         case 1:
-          // view recip
+          // view recipe
           ui.recipView();
           int viewVal = ui.intGetter();
           switch (viewVal) {
@@ -258,7 +258,7 @@ public class RecipApp {
               }
               break;
             case 2:
-              // specieal recip view
+              // specieal recipe view
               if (recips.isEmpty()) {
                 System.out.println("There Is Now Recips Yet!");
                 ui.pressToReturn();
@@ -268,7 +268,7 @@ public class RecipApp {
                 int recipIndex = ui.compare(recips.size());
                 
                 System.out.println("Recip: " + recips.get(recipIndex).getName()
-                    + "\n\nLable: " + recips.get(recipIndex).lableGetter()
+                    + "\n\nLabel: " + recips.get(recipIndex).labelGetter()
                     + "\n\nIngredients:\n" + recips.get(recipIndex).getIngredients() 
                     + "\n\nPortions:\n(" + recips.get(recipIndex).getPortions() 
                     + ")\n\nSteps:\n" + recips.get(recipIndex).viewWayMake()
@@ -351,10 +351,10 @@ public class RecipApp {
           recipStepsEditor(recipIndex);
           break;
         case 4:
-          // Lable Edit
-          System.out.println("What Is The New Lable?");
-          recips.get(recipIndex).lableSetter();
-          System.out.println("The Lable have been Edited");
+          // Label Edit
+          System.out.println("What Is The New Label?");
+          recips.get(recipIndex).labelSetter();
+          System.out.println("The Label have been Edited");
           ui.pressToReturn();
           break;
         case 5:
@@ -371,7 +371,7 @@ public class RecipApp {
   }
 
   /**
-   * option Step edits in recip.
+   * option Step edits in recipe.
    */
   private void recipStepsEditor(int recipIndex) {
 
@@ -405,7 +405,7 @@ public class RecipApp {
   }
 
   /**
-   * recip Ingredient Editor.
+   * recipe Ingredient Editor.
    */
   private void recipIngredientEditor(int recipIndex) {
     // recip ingredients
@@ -418,7 +418,7 @@ public class RecipApp {
         case 0:
           break;
         case 1:
-          // add ingredient to recip
+          // add ingredient to recipe
           recips.get(recipIndex).addIngredient(ingredients);
           ui.pressToReturn();
           break;
@@ -479,7 +479,7 @@ public class RecipApp {
           sh.search(recips);
           break;
         case 4:
-          sh = new ByLableSearch();
+          sh = new ByLabelSearch();
           sh.search(recips);
           break;   
         default:

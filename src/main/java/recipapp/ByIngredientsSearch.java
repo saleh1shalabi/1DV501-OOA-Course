@@ -23,7 +23,7 @@ public class ByIngredientsSearch implements SearchBehaivour {
         y++;
       }
     }
-    System.out.println("The Recips With Ingredient (" 
+    System.out.println("The Recipes With Ingredient (" 
         + theOneIngredient.getName() + ") Are:\n\n" + x.toString());
   }
   

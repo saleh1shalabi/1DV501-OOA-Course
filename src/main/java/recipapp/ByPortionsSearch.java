@@ -23,7 +23,7 @@ public class ByPortionsSearch implements SearchBehaivour {
         y++;
       }
     }
-    System.out.println("Recips Found With The Number Of Portions (" 
+    System.out.println("Recipes Found With The Number Of Portions (" 
         + portions + "):\n\n" + x.toString());
   }
 

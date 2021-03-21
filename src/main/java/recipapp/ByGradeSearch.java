@@ -23,7 +23,7 @@ public class ByGradeSearch implements SearchBehaivour {
         y++;
       }
     }
-    System.out.println("Recips Found With The Grade " + grade + " Or more:\n\n" + x.toString());
+    System.out.println("Recipes Found With The Grade " + grade + " Or more:\n\n" + x.toString());
   }
 
   @Override

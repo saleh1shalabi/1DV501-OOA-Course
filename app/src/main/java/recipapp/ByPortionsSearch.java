@@ -6,7 +6,7 @@ public class ByPortionsSearch implements SearchBehaivour {
   private UiConsoleSc ui = new UiConsoleSc();
 
   /**
-   * searcher for recips of X portion.
+   * searcher for recipes of X portion.
    */
   @Override
   public void search(ArrayList<Recip> recips) {
@@ -20,7 +20,7 @@ public class ByPortionsSearch implements SearchBehaivour {
         y++;
       }
     }
-    System.out.println("Recips Found With The Number Of Portions (" 
+    System.out.println("Recipes Found With The Number Of Portions (" 
         + portions + "):\n\n" + x.toString());
   }
 

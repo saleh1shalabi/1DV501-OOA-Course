@@ -20,7 +20,7 @@ public class ByPriceSearch implements SearchBehaivour {
         y++;
       }
     }
-    System.out.println("Recips Found With The Price " + price + " Or Less:\n\n" + x.toString());
+    System.out.println("Recipes Found With The Price " + price + " Or Less:\n\n" + x.toString());
   }
 
   /**
