@@ -12,6 +12,7 @@ public class Recip {
   private ArrayList<String> wayToMake;
   private ArrayList<ArrayList<?>> recipt;
   private int portions;
+  private String lable; 
 
   /**
    * Recip Object.
@@ -24,6 +25,18 @@ public class Recip {
     recipt = new ArrayList<>();
     wayToMake = new ArrayList<>();
 
+  }
+
+  public void lableSetter() {
+    lable = ui.chooseRecipLable();
+  }
+
+  public void setLableFromFile(String lable) {
+    this.lable = lable;
+  }
+
+  public String lableGetter() {
+    return lable;
   }
 
   public void makeWayFromFile(String steg) {
@@ -299,7 +312,7 @@ public class Recip {
 
     for (int c = 0; c < ingredients.size(); c++) {
       x.append(y);
-      x.append(". " + ingredients.get(c).getName() + " : " + (ny.get(c) * port)
+      x.append(". " + ingredients.get(c).getName() + " : " + Math.round(ny.get(c) * port)
           + " (" + ingredients.get(c).getUnit() + ")"
           + " : " + "(Reason) " + comments.get(c) + "\n");
       y++;
@@ -309,7 +322,7 @@ public class Recip {
     for (int c = 0; c < ingredients.size(); c++) {
       prise += ingredients.get(c).getPrice() * (ny.get(c) * port);
     }
-    System.out.println("Price (" + prise + ")\n\n");
+    System.out.println("\nLable:" + lableGetter() + "\n\nPrice (" + prise + ")\n" 
+        + "\nSteps:\n" + viewWayMake());
   }
-
 }

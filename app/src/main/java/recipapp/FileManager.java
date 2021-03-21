@@ -47,7 +47,8 @@ public class FileManager {
 
     ArrayList<ArrayList<String>> ingr = new ArrayList<>(ingredientReader());
     for (ArrayList<String> ings : ingr) {
-      Ingredient ing = (new Ingredient(ings.get(0), ings.get(1), Double.parseDouble(ings.get(2))));
+      Ingredient ing = (new Ingredient(ings.get(0), ings.get(1), 
+          Double.parseDouble(ings.get(2)), ings.get(3)));
       ingredients.add(ing);
     }
     return ingredients;
@@ -65,7 +66,8 @@ public class FileManager {
             + ingredient.getName().substring(1) + "," 
             + ingredient.getUnit().substring(0,1).toUpperCase() 
             + ingredient.getUnit().substring(1)  
-            + "," + ingredient.getPrice() + "\n");
+            + "," + ingredient.getPrice() + ","
+            + ingredient.getLable() + "\n");
       }
       ingWriter.close();
     } catch (IOException e) {
@@ -99,7 +101,8 @@ public class FileManager {
     try {
       FileWriter recipWriter = new FileWriter(pathToRecips);
       for (Recip recip : recips) {
-        recipWriter.append(recip.getName() + "," + recip.writeRecip() + "\n");
+        recipWriter.append(recip.getName() + "," + recip.writeRecip() 
+            + "," + recip.lableGetter() + "\n");
       }
       recipWriter.close();
     } catch (IOException e) {
@@ -125,6 +128,8 @@ public class FileManager {
       String[] makeWayList = makeWay.split(",");
 
       String numberPortions = rec[3];
+
+      final String lable = rec[4].substring(0,1).toUpperCase() + rec[4].substring(1);
 
       for (String ing : ingrediensFromRecip) {
         String thisOne = ing.replace(":", ",");
@@ -152,6 +157,7 @@ public class FileManager {
         }
       }
       recip.portionSetter(Integer.parseInt(numberPortions));
+      recip.setLableFromFile(lable);
       recips.add(recip);
     }
     return recips;

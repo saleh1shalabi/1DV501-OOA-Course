@@ -12,5 +12,5 @@ public interface SearchBehaivour {
   /**
    * user ingredient choice.
    */
-  public Ingredient chooseIngrediet(ArrayList<Ingredient> ingredients);
+  public void chooseIngrediet(ArrayList<Ingredient> ingredients);
 }

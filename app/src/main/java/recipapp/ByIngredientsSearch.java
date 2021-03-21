@@ -28,7 +28,7 @@ public class ByIngredientsSearch implements SearchBehaivour {
    * For the user to choose one ingredient.
    */
   @Override
-  public Ingredient chooseIngrediet(ArrayList<Ingredient> ingredients) {
+  public void chooseIngrediet(ArrayList<Ingredient> ingredients) {
     StringBuilder x = new StringBuilder();
     int y = 1;
     System.out.println("Which Ingredient");
@@ -40,6 +40,5 @@ public class ByIngredientsSearch implements SearchBehaivour {
     System.out.println(x.toString());
     int theIngredient = ui.compare(ingredients.size());
     theOneIngredient = ingredients.get(theIngredient);
-    return theOneIngredient;
   }
 }

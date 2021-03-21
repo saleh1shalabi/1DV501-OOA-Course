@@ -30,15 +30,18 @@ public class RecipApp {
 
     System.out.println("Which Unit to Use With (" + ne + "): ");
     String mg = ui.stringGetter();
-
-    System.out.println("What Is the Price for (" + ne + "): ");
+    
+    System.out.println("What Is The Price For (" + ne + "): ");
     double pr = ui.doubleGetter();
     while (pr <= 0) {
       ui.wronger();
       pr = ui.doubleGetter();
     }
 
-    Ingredient ing = (new Ingredient(ne, mg, pr));
+    System.out.println("What Is The Lable For (" + ne + "): ");
+    String lb = ui.chooseIngredientLable();
+
+    Ingredient ing = (new Ingredient(ne, mg, pr, lb));
     ingredients.add(ing);
     
     System.out.println("The Ingredient " + ing.getName() + "Have Been Added!\n\n");
@@ -69,6 +72,7 @@ public class RecipApp {
     
     recip.addIngredient(ingredients);
     recip.makingWay();
+    recip.lableSetter();
 
     recips.add(recip);
   }
@@ -140,6 +144,7 @@ public class RecipApp {
                 int ingredientIndex = ui.compare(ingredients.size());
                 System.out.println("\n\nThe Chosen Ingredient:\n");
                 System.out.println("Name: " + ingredients.get(ingredientIndex).getName());
+                System.out.println("Lable: " + ingredients.get(ingredientIndex).getLable());
                 System.out.println("Price: " + ingredients.get(ingredientIndex).getPrice());
                 System.out.println("Unit: " + ingredients.get(ingredientIndex).getUnit() + "\n\n");
                 ui.pressToReturn();
@@ -213,6 +218,14 @@ public class RecipApp {
           System.out.println("\nThe Unit have been Edited!\n");
           ui.pressToReturn();
           break;
+        case 4:
+          // lable Edit
+          System.out.println("\nLable Of " + ingredients.get(ingIndex).getName() 
+              + " are (" + ingredients.get(ingIndex).getLable() + ")\n");
+          ingredients.get(ingIndex).editLable(ui.chooseIngredientLable());
+          System.out.println("\nThe Lable have been Edited!\n");
+          ui.pressToReturn();
+          break;
         default:
           ui.wronger();
       }
@@ -253,7 +266,10 @@ public class RecipApp {
                 ui.standard();
                 viewAllRecips();
                 int recipIndex = ui.compare(recips.size());
-                System.out.println("\nIngredients:\n" + recips.get(recipIndex).getIngredients() 
+                
+                System.out.println("Recip: " + recips.get(recipIndex).getName()
+                    + "\n\nLable: " + recips.get(recipIndex).lableGetter()
+                    + "\n\nIngredients:\n" + recips.get(recipIndex).getIngredients() 
                     + "\n\nPortions:\n(" + recips.get(recipIndex).getPortions() 
                     + ")\n\nSteps:\n" + recips.get(recipIndex).viewWayMake()
                     + "\n\nPrice: (" + recips.get(recipIndex).getPrice() + ")\n\n");
@@ -335,8 +351,18 @@ public class RecipApp {
           recipStepsEditor(recipIndex);
           break;
         case 4:
+          // Lable Edit
+          System.out.println("What Is The New Lable?");
+          recips.get(recipIndex).lableSetter();
+          System.out.println("The Lable have been Edited");
+          ui.pressToReturn();
+          break;
+        case 5:
+          //Portions edit
           System.out.println("What Is The new Number Of Portions?");
           recips.get(recipIndex).portionSetter(ui.intGetter());
+          System.out.println("The Number Of Portions have been Edited");
+          ui.pressToReturn();
           break;
         default:
           ui.wronger();
@@ -450,6 +476,10 @@ public class RecipApp {
           break;
         case 3:
           sh = new ByPortionsSearch();
+          sh.search(recips);
+          break;
+        case 4:
+          sh = new ByLableSearch();
           sh.search(recips);
           break;   
         default:

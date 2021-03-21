@@ -98,7 +98,7 @@ public class UiConsoleSc {
   }
 
   public void ingredeientEdit() {
-    System.out.println(standard + "1. Name\n    2. Price\n    3. Unit\n"
+    System.out.println(standard + "1. Name\n    2. Price\n    3. Unit\n    4. Lable\n"
         + "    0. Back to Ingredients Menu");
   }
 
@@ -116,9 +116,13 @@ public class UiConsoleSc {
         + "    3. A Recip With Specieal given Portion Number\n");
   }
 
+  /**
+   * Recip Edit menu.
+   */
   public void recipEdit() {
     System.out.println(standard + "1. Name\n    2. Ingredients\n"
-        + "    3. The way of making\n    4. Number Of Portions\n    0. Back to Recip Menu\n");
+        + "    3. The way of making\n    4. Edit Lable\n    "
+        + "5. Number Of Portions\n    0. Back to Recip Menu\n");
   }
 
   /**
@@ -145,6 +149,38 @@ public class UiConsoleSc {
 
   public void search() {
     System.out.println(standard + "1. Search by Price\n    2. Search by Ingredients\n"
-        + "    3. Search by Portion number\n    0. Back to Main Menu\n");
+        + "    3. Search by Portion number\n    4. Search by Lable\n    0. Back to Main Menu\n");
+  }
+
+  /**
+   * method to set lable to a recip.
+   */
+  public String chooseRecipLable() {
+    String[] labels = {"Dessert", "Dinner", "Breakfast" 
+        + "Lunch", "BBQ", "Vegetarian", "Vegan", "Dairy Free"};
+    int count = 1;  
+    standard();
+    for (String lable : labels) {
+      System.out.println(count + ". " + lable);
+      count++;
+    }
+    int choose = compare(9);
+    return labels[choose]; 
+  }
+
+  /**
+   * method to set lable to a Ingredient.
+   */
+  public String chooseIngredientLable() {
+    
+    String[] labels = {"Vegan", "Dairy", "Gluten", "Fish & SeaFood", "meat", "Chicken"};
+    int count = 1;
+    standard();  
+    for (String lable : labels) {
+      System.out.println(count + ". " + lable);
+      count++;
+    }
+    int choose = compare(6);
+    return labels[choose]; 
   }
 }

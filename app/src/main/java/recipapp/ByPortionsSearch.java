@@ -28,7 +28,6 @@ public class ByPortionsSearch implements SearchBehaivour {
     * none functional in this implementaion.
    */
   @Override
-  public Ingredient chooseIngrediet(ArrayList<Ingredient> ingredients) {
-    return null;
+  public void chooseIngrediet(ArrayList<Ingredient> ingredients) {
   }
 }
